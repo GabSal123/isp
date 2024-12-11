@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "../styles/resstyles.css"
+import SeatSelection from '../components/SeatSelection';
 
-const ReservationForm = ()=> {
+const RezervacijosKurimoLangas = ()=> {
     const { id } = useParams();
     const reservation = {
         movie: "Titanikas",
@@ -12,7 +13,10 @@ const ReservationForm = ()=> {
     }
 
     const navigate = useNavigate();
-
+    const handleResClick = () => {
+      console.log(id)
+      navigate(`/revervacija/${id}`);
+  };
 
 
   return (
@@ -20,8 +24,11 @@ const ReservationForm = ()=> {
     <div className='resFormContainer'>
     <h1>Rezervacijos detales</h1>
     <p>Rezervacijos ID: {id}</p>
+    <p>{reservation.movie}</p>
+    <SeatSelection/>
+    <button onClick={handleResClick}>Uzsisakyti</button>
   </div>
   )
 }
 
-export default ReservationForm
+export default RezervacijosKurimoLangas

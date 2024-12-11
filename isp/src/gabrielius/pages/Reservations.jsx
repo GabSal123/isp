@@ -29,7 +29,7 @@ const Reservations = ()=> {
 
     const handleResClick = (id) => {
         console.log(id)
-        navigate(`/reservation/${id}`);
+        navigate(`/seansai/${id}`);
     };
 
   return (
