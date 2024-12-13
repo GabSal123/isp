@@ -1,0 +1,120 @@
+/* General body styling */
+.login-body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Background image with body::before */
+.login-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://img.freepik.com/free-vector/open-air-cinema_23-2148657084.jpg?t=st=1734104745~exp=1734108345~hmac=729b2b83313c2ce68d3b5cc4e93b46f87bec695be8b91bef1f706b74e0e2c7b5&w=1380'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: grayscale(100%);
+    z-index: -1; /* Ensure the image stays behind the content */
+}
+
+/* Main login container styling */
+.login-container {
+    background: rgba(255, 255, 255, 0.8); /* semi-transparent white */
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+/* Title styling */
+.login-h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Styling for input labels */
+.login-label {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+/* Input fields styling */
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 20px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Button styling */
+.login-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.login-btn:hover {
+    background-color: #ae4c4c;
+}
+
+/* Success and error messages */
+.login-success, .login-error {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.login-error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* Responsive design */
+@media screen and (max-width: 480px) {
+    .login-container {
+        padding: 20px;
+        width: 90%;
+    }
+
+    .login-h1 {
+        font-size: 1.8em;
+    }
+
+    .login-label {
+        font-size: 1em;
+    }
+
+    .login-input, .login-btn {
+        font-size: 1em;
+        padding: 8px;
+    }
+}

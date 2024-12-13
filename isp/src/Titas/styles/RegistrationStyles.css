@@ -1,0 +1,151 @@
+/* General Styling */
+.registration-body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.registration-body::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('https://img.freepik.com/free-vector/open-air-cinema_23-2148657084.jpg?t=st=1734104745~exp=1734108345~hmac=729b2b83313c2ce68d3b5cc4e93b46f87bec695be8b91bef1f706b74e0e2c7b5&w=1380'); /* Replace with your image path */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: grayscale(100%);
+    z-index: -1; /* Ensure the image stays behind the content */
+}
+
+/* Main container styling */
+.registration-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    text-align: center;
+}
+
+/* Title Styling */
+.registration-h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Label styling */
+.registration-label {
+    font-size: 1rem;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+/* Input field styling */
+.registration-input {
+    width: calc(100% - 40px); 
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+    display: block;
+    margin-left: 10px;
+}
+
+/* Input field focus state */
+.registration-input:focus {
+    border-color: #007bff;
+    outline: none;
+    background-color: #fff;
+}
+
+/* Radio button styling */
+input[type="radio"] {
+    margin-right: 5px;
+}
+
+/* Button styling */
+.registration-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+.registration-btn:hover {
+    background-color: #ae4c4c;
+}
+
+/* Success and Error messages container */
+.registration-messages {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px; /* Add space between form and messages */
+    gap: 10px; /* Optional: space between the success and error message */
+}
+
+/* Success Message */
+.registration-success {
+    display: block;
+    background-color: lightblue;
+    color: black;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: auto;
+    text-align: center;
+    min-width: 200px;
+}
+
+/* Error Message */
+.registration-error {
+    display: block;
+    background-color: rgba(255, 0, 0, 0.521);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    width: auto;
+    text-align: center;
+    min-width: 200px;
+}
+
+/* Radio buttons labels */
+.labelRadio {
+    font-size: 1rem;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+    text-align: left;
+    margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+    .registration-container {
+        width: 90%;
+        padding: 15px;
+    }
+
+    .input {
+        width: 100%; /* Ensure inputs take up the full width on smaller screens */
+    }
+
+    .btn {
+        width: 100%;
+    }
+}

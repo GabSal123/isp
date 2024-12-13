@@ -8,6 +8,10 @@ import FilmoLangas from './gabrielius/pages/FilmoLangas';
 import RezervacijuLangas from './gabrielius/pages/RezervacijuLangas';
 import RezervacijosInformacinisLangas from './gabrielius/pages/RezervacijosInformacinisLangas';
 import MokejimoLangas from './gabrielius/pages/MokejimoLangas';
+import Registracija from './Titas/pages/Registracija';
+import Prisijungimas from './Titas/pages/Prisijungimas';
+import Profilis from './Titas/pages/Profilis';
+import DisplayProfile from './Titas/components/DisplayUser';
 
 function App() {
 
@@ -23,6 +27,9 @@ function App() {
       <Route path="/revervacijosinfo/:id" element={<RezervacijosInformacinisLangas/>}/>
       <Route path="/seansas/:id" element={<RezervacijosKurimoLangas/>}/>
       <Route path="/mokejimas" element={<MokejimoLangas/>}/>
+      <Route path="/Registracija" element={<Registracija/>}/>
+      <Route path="/Prisijungimas" element={<Prisijungimas/>}/>
+      <Route path="/Profilis" element={<Profilis/>}/>
 
       </Routes>
 
