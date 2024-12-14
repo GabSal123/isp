@@ -1,14 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'
 import '../styles/LoginStyles.css';
 
-const Prisijungimas = () => {
-    const user = [
-        {
-            userName: "Lowbobas",
-            password: "123123"
-        }
-    ];
+const  Prisijungimas = () => {
+    
 
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -24,14 +20,18 @@ const Prisijungimas = () => {
         setPassword(temp.target.value);
         setSubmitted(false);
     }
-
-    const handleSubmit = (temp) => {
+    const navigate = useNavigate();
+    const handleSubmit = async (temp) => {
         temp.preventDefault(); 
-        const hardcodedUser = user[0]; 
-  
-        if (userName === hardcodedUser.userName && password === hardcodedUser.password) {
+        
+        
+        const responseId = await axios.get("https://localhost:7241/GetId", {params: {username: userName , password: password}});
+        const id = responseId.data;
+        if (id !== null || id !== undefined) {
             setSubmitted(true);
             setError(false);
+
+            navigate(`/${id}`);
         } else {
             setError(true);
             setSubmitted(false);

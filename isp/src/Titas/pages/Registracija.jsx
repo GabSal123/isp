@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import axios from 'axios'
 import '../styles/RegistrationStyles.css';
 import defaultPicture from '../assets/defaultPP.png';
 
@@ -11,14 +12,16 @@ const Registracija = ()=> {
     const [surName, setSurname] = useState("");
     const [email, setEmail] = useState("");
     const [profilePicture, setProfilePicture] = useState(defaultPicture);
-    const [age, setAge] = useState("");
+    const [age, setAge] = useState();
     const [loyaltyCredit, setLoyaltyCredit] = useState(0);
-    const [gender, setGender] = useState("");
+    const [gender, setGender] = useState(3);
     const [level, setLevel] = useState(1);
-    const [userType, setUserType] = useState(1);
+    const [userType, setUserType] = useState(2);
 
     const [submitted, setSubmitted] = useState(false);
-    const [error, setError] = useState(false);
+    const [userError, setUserError] = useState(false);
+    const [emptyFieldsError, setEmptyFieldsError] = useState(false);
+    const [gmailError, setGmailError] = useState(false);
 
     const handleUserName = (temp) =>{
         setUsername(temp.target.value);
@@ -61,28 +64,68 @@ const Registracija = ()=> {
     //no loyaltycredit on registration
 
     const handleGender = (temp) =>{
-        setGender(temp.target.value);
+        let genderValue = temp.target.value;
+        let genderEnumValue;
+
+    
+        if (genderValue === "Vyras") {
+            genderEnumValue = 1; 
+        } else if (genderValue === "Moteris") {
+            genderEnumValue = 2;
+        } else if (genderValue === "Kita") {
+            genderEnumValue = 3; 
+        }
+
+        setGender(genderEnumValue); 
         setSubmitted(false);
 
     }
 
     //level updates after registration
     //usertype is automaticly set by admin?
+    const payload = {
+        "username": userName,
+        "name": name,
+        "password": password,
+        "surname": surName,
+        "email": email,
+        "profilePicture": "profilePicture",  
+        "age": age,
+        "loyaltyMoney": loyaltyCredit,  
+        "gender": gender,
+        "level": level,  
+        "userType": userType,  
+    };
 
+
+   
     //Form submission
     const navigate = useNavigate();
     const handleSubmit = (temp) => {
         temp.preventDefault();
         if (name === "" || email === "" || password === "" || userName === "" || surName === ""
             || age === "" || gender === "") {
-            setError(true);
+            setEmptyFieldsError(true);
+            setSubmitted(false);            
+
+        }
+        if(userName.length < 6 || password.length < 6){
+            setUserError(true);
             setSubmitted(false); 
+        }
+        if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email))) {
+            setGmailError(true);
+            setSubmitted(false);
+        }
+        else {
 
-            
-
-        } else {
+            axios.post("https://localhost:7241/AddUser", payload);
+            console.log(payload);
+                               
             setSubmitted(true);
-            setError(false);
+            setEmptyFieldsError(false);
+            setUserError(false);
+            setGmailError(false);
             
             navigate(`/prisijungimas`);
         }
@@ -101,12 +144,12 @@ const Registracija = ()=> {
         );
     };
 
-    const errorMessage = () => {
+    const errorMessageEmptyFields = () => {
         return (
             <div
                 className="registration-error"
                 style={{
-                    display: error ? "" : "none",
+                    display: emptyFieldsError ? "" : "none",
                 }}
             >
                 <h1>Prašome įvesti visus laukus</h1>
@@ -114,13 +157,43 @@ const Registracija = ()=> {
         );
     };
 
+    const errorMessageShortValue = () => {
+        return (
+            <div
+                className="registration-error"
+                style={{
+                    display: userError ? "" : "none",
+                }}
+            >
+                <h1>Minimalus slp/prsjng vardo ilgis: 6 simboliai</h1>
+            </div>
+        );
+    };
+
+    const errorMessageEmail = () => {
+        return (
+            <div
+                className="registration-error"
+                style={{
+                    display: gmailError ? "" : "none",
+                }}
+            >
+                <h1>Netinkamas pašto formatas</h1>
+            </div>
+        );
+    };
+
+    
+
     return (
     <body className = 'registration-body'>
         <div className ="registration-container">
             <h1 className='registration-h1'>Registracija</h1>
             <div className = "registration-messages">
-                {errorMessage()}
+                {errorMessageEmptyFields()}
+                {errorMessageShortValue()}
                 {successMessage()}
+                {errorMessageEmail()}
             </div>
             <form>
                 {/*Inputs for form data */}
@@ -177,29 +250,29 @@ const Registracija = ()=> {
                 <label className = "labelRadio">
                     <input
                         type="radio"
-                        value="Male"
-                        checked={gender === "Male"}
+                        value="Vyras"
+                        checked={gender === 1}
                         onChange={handleGender}
                     />
-                Male
+                Vyras
                 </label>
                 <label className = "labelRadio">
                     <input
                         type="radio"
-                         value="Female"
-                        checked={gender === "Female"}
+                        value="Moteris"
+                        checked={gender === 2}
                         onChange={handleGender}
                     />
-                Female
+                Moteris
                 </label>
                 <label className = "labelRadio">
                     <input
                         type="radio"
-                        value="Other"
-                        checked={gender === "Other"}
+                        value="Kita"
+                        checked={gender === 3}
                         onChange={handleGender}
                     />
-                    Other
+                Kita
                 </label>
                 </div>
                 
