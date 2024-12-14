@@ -2,6 +2,7 @@ import { useState } from 'react'
 import DisplayReservation from '../components/DisplayReservation'
 import { useNavigate } from 'react-router-dom';
 import "../styles/resstyles.css"
+import axios from 'axios';
 
 
 const Reservations = ()=> {
@@ -24,6 +25,17 @@ const Reservations = ()=> {
         },
 
     ]
+
+    const request = axios.get("https://localhost:7241/WeatherForecast");
+    request
+    .then((res) => res.data)
+    .then((data) => console.log(data))
+    .catch(() => {
+      if (setError) {
+        setError(message);
+      }
+    });
+
 
     const navigate = useNavigate();
 
