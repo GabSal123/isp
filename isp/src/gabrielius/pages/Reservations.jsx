@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import DisplayReservation from '../components/DisplayReservation'
 import { useNavigate } from 'react-router-dom';
+import { ReactSession } from 'react-client-session';
 import "../styles/resstyles.css"
 import axios from 'axios';
 
 
 const Reservations = ()=> {
+    const id = ReactSession.get("id");
+    console.log(id);
     const reservations = [
         {id: 0,
         movie: "Titanikas",

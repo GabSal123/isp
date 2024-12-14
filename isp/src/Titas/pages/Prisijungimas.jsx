@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ReactSession } from 'react-client-session';
 import axios from 'axios'
 import '../styles/LoginStyles.css';
 
 const  Prisijungimas = () => {
-    
+    ReactSession.setStoreType("localStorage");
 
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -31,7 +32,8 @@ const  Prisijungimas = () => {
             setSubmitted(true);
             setError(false);
 
-            navigate(`/${id}`);
+            ReactSession.set("id", `${id}`);
+            navigate(`/`);
         } else {
             setError(true);
             setSubmitted(false);
