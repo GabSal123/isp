@@ -14,6 +14,8 @@ import Profilis from './Titas/pages/Profilis';
 import DisplayProfile from './Titas/components/DisplayUser';
 import PirkiniuIstorija from './Justina/pages/PirkiniuIstorija';
 import KrepselioLangas from './Justina/pages/KrepselioLangas';
+import FilmuIstorija from './Titas/pages/FilmuIstorija';
+import DisplayFilm from './Titas/components/DisplayFilm';
 //import PrekesLangas from './Justina/pages/PrekesLangas';
 //import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
 
@@ -38,6 +40,7 @@ function App() {
       <Route path="/Krepselis" element={<KrepselioLangas/>}/>
       {/*<Route path="/Preke/:id" element={<PrekesLangas/>}/>*/}
       {/*<Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>*/}
+      <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>
 
       </Routes>
 

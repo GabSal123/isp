@@ -49,14 +49,14 @@ namespace ISPbackas.Controllers
         }
         [HttpGet]
         [Route("/GetUser")]
-        public async Task<IActionResult> GetUser(string username, string password)
+        public async Task<IActionResult> GetUser(int id)
         {
-            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Username == username && u.Password == password);
+            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Id == (ulong)id );
             await _context.SaveChangesAsync();
 
             if(user == null)
             {
-                return NotFound($"User with Username {username} is not registered");   
+                return NotFound($"User with id: {id} is not registered");   
             }
             
             return Ok(user);
@@ -79,5 +79,76 @@ namespace ISPbackas.Controllers
             return Ok(id);
         }
 
+        [HttpGet]
+        [Route("/GetFilms")]
+        public async Task<IActionResult> GetFilms(int id)
+        {
+            var films = await _context.WatchedMovies.Where(u => u.FkRegisteredUser == id).ToListAsync();
+
+            if(films == null || !films.Any())
+            {
+                return NotFound("Film data not found");
+            }
+
+            return Ok(films);
+        }
+        [HttpGet]
+        [Route("/GetMovie")]
+        public async Task<IActionResult> GetMovie(int id)
+        {
+            var movies = await _context.Movies.Where(u => u.Id == (ulong)id).ToListAsync();
+
+            if(movies == null || !movies.Any())
+            {
+                return NotFound("Movies data not found");
+            }
+
+            return Ok(movies);
+        }
+        [HttpGet]
+        [Route("/GetPurchases")]
+        public async Task<IActionResult> GetPurchases(int id)
+        {
+            var purchases = await _context.Purchases.Where(u => u.FkRegisteredUser == id).ToListAsync();
+
+            if(purchases == null || !purchases.Any())
+            {
+                return NotFound("Purchases data not found");
+            }
+
+            return Ok(purchases);
+        }
+        [HttpPut]
+        [Route("/UpdateLoyalty")]
+        public async Task<IActionResult> UpdateLoyalty(int id, [FromBody] double loyaltyCredit)
+        {
+            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Id == (ulong)id );
+
+            if(user == null)
+            {
+                return NotFound("User data not found");
+            }
+
+            user.LoyaltyMoney = loyaltyCredit;
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+        [HttpGet]
+        [Route("/GetCoupons")]
+        public async Task<IActionResult> GetCoupons(int id)
+        {
+            var coupons = await _context.Coupons.Where(u => u.FkRegisteredUser == id).ToListAsync();
+
+            if(coupons == null || !coupons.Any())
+            {
+                return NotFound("Coupons data not found");
+            }
+
+            return Ok(coupons);
+        }
+
+
     }
+
+    
 }

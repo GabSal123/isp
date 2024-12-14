@@ -16,7 +16,7 @@ const Registracija = ()=> {
     const [loyaltyCredit, setLoyaltyCredit] = useState(0);
     const [gender, setGender] = useState(3);
     const [level, setLevel] = useState(1);
-    const [userType, setUserType] = useState(2);
+    const [userType, setUserType] = useState(1);
 
     const [submitted, setSubmitted] = useState(false);
     const [userError, setUserError] = useState(false);
@@ -52,6 +52,7 @@ const Registracija = ()=> {
         setSubmitted(false);
 
     }
+
 
     //no profile picture upon registration?
 

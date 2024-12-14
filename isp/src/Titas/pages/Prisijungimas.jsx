@@ -5,7 +5,7 @@ import axios from 'axios'
 import '../styles/LoginStyles.css';
 
 const  Prisijungimas = () => {
-    ReactSession.setStoreType("localStorage");
+    //ReactSession.setStoreType("localStorage");
 
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -31,9 +31,8 @@ const  Prisijungimas = () => {
         if (id !== null || id !== undefined) {
             setSubmitted(true);
             setError(false);
-
-            ReactSession.set("id", `${id}`);
-            navigate(`/`);
+            localStorage.setItem("id", id);
+            navigate(`/Profilis`);
         } else {
             setError(true);
             setSubmitted(false);

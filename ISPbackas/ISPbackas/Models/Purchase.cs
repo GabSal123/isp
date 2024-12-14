@@ -11,7 +11,7 @@ public partial class Purchase
 
     public string CardInfo { get; set; } = null!;
 
-    public double PriceValue { get; set; }
+    public double PriceValue { get; set; } 
 
     public DateOnly Date { get; set; }
 
