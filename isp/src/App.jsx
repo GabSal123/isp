@@ -12,6 +12,10 @@ import Registracija from './Titas/pages/Registracija';
 import Prisijungimas from './Titas/pages/Prisijungimas';
 import Profilis from './Titas/pages/Profilis';
 import DisplayProfile from './Titas/components/DisplayUser';
+import PirkiniuIstorija from './Justina/pages/PirkiniuIstorija';
+import KrepselioLangas from './Justina/pages/KrepselioLangas';
+import PrekesLangas from './Justina/pages/PrekesLangas';
+import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
 
 function App() {
 
@@ -30,6 +34,10 @@ function App() {
       <Route path="/Registracija" element={<Registracija/>}/>
       <Route path="/Prisijungimas" element={<Prisijungimas/>}/>
       <Route path="/Profilis" element={<Profilis/>}/>
+      <Route path="/PirkiniuIstorija" element={<PirkiniuIstorija/>}/>
+      <Route path="/Krepselis" element={<KrepselioLangas/>}/>
+      <Route path="/Preke/:id" element={<PrekesLangas/>}/>
+      <Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>
 
       </Routes>
 
