@@ -1,18 +1,18 @@
-/* Reset CSS */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+.pirkiniu-body {
+    display: flex;
+    /* Enable flexbox layout */
+    flex-direction: column;
+    /* Arrange items in a column */
+    justify-content: center;
+    /* Center items vertically */
+    align-items: center;
+    /* Center items horizontally */
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
+    /* Full viewport height */
 }
+
 
 /* Ticket Container */
 .ticket {
@@ -37,7 +37,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    border-right: 2px solid #333; 
+    border-right: 2px solid #333;
     padding-right: 10px;
     height: 100%;
 }
@@ -91,14 +91,17 @@ body {
 /* Seat Information */
 .seat {
     display: flex;
-    flex-wrap: nowrap; /* Prevent text from wrapping */
+    flex-wrap: nowrap;
+    /* Prevent text from wrapping */
     align-items: center;
     flex: 0.75;
     gap: 5px;
     font-size: 16px;
     font-family: Arial, sans-serif;
-    color: black !important; /* Force black color */
-    font-weight: normal !important; /* Force normal font weight */
+    color: black !important;
+    /* Force black color */
+    font-weight: normal !important;
+    /* Force normal font weight */
 }
 
 /* Price Section */
@@ -119,22 +122,32 @@ body {
     font-size: 16px;
     margin-left: 3px;
 }
+
 .back-button-container {
     position: fixed;
-    bottom: 20px; /* Distance from the bottom of the screen */
-    left: 20px;  /* Distance from the left of the screen */
-    z-index: 1000; /* Ensure it's on top of other elements */
-  }
-  
-  .back-button {
-    height: 50px; /* Adjust the height of the image */
-    cursor: pointer; /* Show a pointer cursor on hover */
-  }
-  .remove-button {
-    height: 100px; /* Adjust the height of the image */
-    cursor: pointer; /* Show a pointer cursor on hover */
-  }
-  .flex-container {
+    bottom: 20px;
+    /* Distance from the bottom of the screen */
+    left: 20px;
+    /* Distance from the left of the screen */
+    z-index: 1000;
+    /* Ensure it's on top of other elements */
+}
+
+.back-button {
+    height: 50px;
+    /* Adjust the height of the image */
+    cursor: pointer;
+    /* Show a pointer cursor on hover */
+}
+
+.remove-button {
+    height: 100px;
+    /* Adjust the height of the image */
+    cursor: pointer;
+    /* Show a pointer cursor on hover */
+}
+
+.flex-container {
     display: flex;
     justify-content: space-between;
-  }
+}

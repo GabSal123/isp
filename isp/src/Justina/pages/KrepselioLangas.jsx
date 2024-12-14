@@ -16,7 +16,7 @@ import History from '../assets/history.png';
 const KrepselioLangas  = () => {
     
     return (
-        <div style={{ padding: "20px" }}>
+        <div class="pirkiniu-body">
             <h1><center>Krepšelis</center></h1>
             <div class="flex-container">
                 <Bilietas
