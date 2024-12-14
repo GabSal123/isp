@@ -1,16 +1,27 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import "../styles/resstyles.css"
 import SeatSelection from '../components/SeatSelection';
+import axios from 'axios';
 
 const FilmoLangas = ()=> {
     const { id } = useParams();
-    const reservation = {
-        movie: "Titanikas",
-        cost: 12
 
-    }
+    const [movie, setMovie] = useState({title:""})
+    const [movieImage, setMovieImage] = useState("")
+
+    useEffect(()=>{
+      const request = axios.get(`https://localhost:7241/GetMovie?id=${id}`).then((res) => res.data)
+    .then((data) => {
+      setMovie(data)
+      const movie_image = `/src/movie_images/${data.title}.jpg`
+      setMovieImage(movie_image)
+    })
+    .catch((e) => {
+      console.log(e)
+    });
+   },[])
 
     const navigate = useNavigate();
     const handleResClick = () => {
@@ -21,8 +32,8 @@ const FilmoLangas = ()=> {
 
   return (
 <div className="FilmPageContainer">
-  <h1>{reservation.movie} {id}</h1>
-  <div className='FilmPageContainer2'><img src="your-image-url-here" alt="Movie" /></div>
+  <h1>{ movie.title}</h1>
+  <div className='FilmPageContainer2'><img src={movieImage} alt="Movie" /></div>
   <button onClick={handleResClick}>Uzsisakyti</button>
 </div>
   )
