@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 
-const DisplayMovieTime = ({time,lang,subs,onClick})=> {
+const DisplayMovieTime = ({time,lang,subs,hall,onClick})=> {
 
   return (
 
@@ -9,6 +9,7 @@ const DisplayMovieTime = ({time,lang,subs,onClick})=> {
   <p>{time}</p>
   <p>{lang}</p>
   <p>{subs}</p>
+  <p>Sale: {hall}</p>
 </li>
   )
 }
