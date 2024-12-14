@@ -41,6 +41,21 @@ const Reservations = ()=> {
 
     const handleResClick = (id) => {
         console.log(id)
+        const belekas = {
+            "title": "string",
+            "startingFrom": "2024-12-14",
+            "showingUntil": "2024-12-14",
+            "cover": "string",
+            "isDubbed": true,
+            "subtitles": true,
+            "description": "string",
+            "trailerLink": "string",
+            "duration": 0,
+            "studio": "string",
+            "language": 0,
+            "ageCensorship": 0
+          }
+        axios.post("https://localhost:7241/AddMovie",belekas)
         navigate(`/seansai/${id}`);
     };
 
