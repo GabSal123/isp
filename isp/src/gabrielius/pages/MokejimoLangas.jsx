@@ -35,14 +35,14 @@ const MokejimoInfo = () => {
     try {
       const cart_id = localStorage.getItem("cartId");
 
-      // Step 1: Create a PaymentIntent
+
       const { data } = await axios.post(`https://localhost:7241/CreatePaymentIntent?shoppingCartId=${cart_id}`, {
         shoppingCartId: cart_id,
       });
 
       const clientSecret = data.clientSecret;
 
-      // Step 2: Confirm the payment with Stripe
+
       const { error: paymentError, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
@@ -82,7 +82,7 @@ const MokejimoInfo = () => {
           />
         </div>
 
-        {/* Card Element for Stripe */}
+
         <div className="form-group">
           <label htmlFor="cardElement">Korteles informacija</label>
           <CardElement id="cardElement" />
