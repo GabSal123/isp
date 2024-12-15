@@ -7,6 +7,7 @@ import '../styles/LoginStyles.css';
 const  Prisijungimas = () => {
     ReactSession.setStoreType("localStorage");
 
+
     const [userName, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [submitted, setSubmitted] = useState(false);
@@ -32,7 +33,24 @@ const  Prisijungimas = () => {
             setSubmitted(true);
             setError(false);
 
-            ReactSession.set("id", `${id}`);
+            localStorage.setItem("id", `${id}`);
+            const response = await axios.get(`https://localhost:7241/CheckShoppingCart?userId=${id}`).then((res)=>res.data)
+            console.log("responas: ",response)
+            if(response >= 0){
+                localStorage.setItem("cartId",response)
+            }else{
+                const today = new Date();
+                const creationDate = today.toISOString().split('T')[0];
+                const creationTime = new Date().getHours();
+                const cart = {
+                creationDate: creationDate,
+                creationTime: creationTime,
+                state: 1,
+                fkRegisteredUser: id,
+                };
+                cart_id = await axios.post("https://localhost:7241/CreateShoppingCart",cart).then((res)=>res.data)
+                localStorage.setItem("cartId",cart_id)
+            }
             navigate(`/`);
         } else {
             setError(true);

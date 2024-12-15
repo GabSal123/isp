@@ -7,7 +7,7 @@ public partial class MovieSession
 {
     public ulong Id { get; set; }
 
-    public DateOnly Day { get; set; }
+    public DateTime Day { get; set; }
 
     public int StartTime { get; set; }
 

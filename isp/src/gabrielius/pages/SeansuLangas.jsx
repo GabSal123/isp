@@ -41,7 +41,7 @@ const SeansuLangas = ()=> {
       const navigate = useNavigate();
       const handleResClick = (id) => {
         console.log(id)
-        navigate(`/seansas/${id}`);
+        navigate(`/seansas/${id}/create`);
     };
 
 
@@ -79,6 +79,7 @@ const SeansuLangas = ()=> {
           lang={time.language}
           subs={time.subs}
           hall = {time.hall}
+          func = {time.func}
           onClick={()=>handleResClick(time.id)}
         />
       ))}

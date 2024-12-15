@@ -27,9 +27,9 @@ function App() {
       <Route path="/" element={<Reservations/>}/>
       <Route path="/filmas/:id" element={<FilmoLangas/>}/>
       <Route path="/seansai/:id" element={<SeansuLangas/>}/>
-      <Route path="/revervacija/:id" element={<RezervacijuLangas/>}/>
+      <Route path="/revervacija" element={<RezervacijuLangas/>}/>
       <Route path="/revervacijosinfo/:id" element={<RezervacijosInformacinisLangas/>}/>
-      <Route path="/seansas/:id" element={<RezervacijosKurimoLangas/>}/>
+      <Route path="/seansas/:id/:edit" element={<RezervacijosKurimoLangas/>}/>
       <Route path="/mokejimas" element={<MokejimoLangas/>}/>
       <Route path="/Registracija" element={<Registracija/>}/>
       <Route path="/Prisijungimas" element={<Prisijungimas/>}/>
