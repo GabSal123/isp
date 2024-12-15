@@ -3,6 +3,7 @@ using ISPbackas.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using System.Linq;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 namespace ISPbackas.Controllers
 {
@@ -67,6 +68,115 @@ namespace ISPbackas.Controllers
 
             return Ok(products);
         }
+[HttpGet]
+[Route("/RecommendProducts/{userId}")]
+public async Task<IActionResult> RecommendProducts(ulong userId)
+{
+    // Check if the user exists
+    var userExists = await _context.RegisteredUsers.AnyAsync(u => u.Id == userId);
+    if (!userExists)
+    {
+        return NotFound($"User with ID {userId} not found.");
+    }
+
+    // Fetch the user's cart and purchased product information
+    var userCarts = await (from c in _context.ShoppingCarts
+                           join ip in _context.IncludedProducts on c.Id equals (ulong)ip.FkShoppingCart
+                           join p in _context.Products on (ulong)ip.FkProduct equals p.Id
+                           where (ulong)c.FkRegisteredUser == userId
+                           select new
+                           {
+                               ProductId = p.Id,
+                               ProductName = p.Name,
+                               ProductPrice = p.Price,
+                               ProductBrand = p.Brand,
+                               ProductCategory = p.Description, // Assuming there's a Category field
+                               ProductStock = p.AvailableQuantity,
+                               ProductScore = p.Score
+                           }).ToListAsync();
+
+    // Check if there are products in the user's cart history
+    if (userCarts == null || !userCarts.Any())
+    {
+        return NotFound($"No previous cart data found for user with ID {userId}.");
+    }
+
+    // Extract unique brands, categories, and price range from the user's cart history
+    var purchasedBrands = userCarts.Select(p => p.ProductBrand).Distinct().ToList();
+    var purchasedCategories = userCarts.Select(p => p.ProductCategory).Distinct().ToList();
+    var minPrice = userCarts.Min(p => p.ProductPrice);
+    var maxPrice = userCarts.Max(p => p.ProductPrice);
+
+    // Step 1: Query products that match user purchase patterns
+    var recommendedProducts = await (from p in _context.Products
+                                     where (p.Brand != null && purchasedBrands.Contains(p.Brand)) 
+                                           || (p.Description != null && purchasedCategories.Contains(p.Description))
+                                           || (p.Price >= minPrice * 0.8 && p.Price <= maxPrice * 1.2) // +/- 20% price range
+                                           && p.AvailableQuantity > 0 // Ensure products are available in stock
+                                           && p.Score >= 2 // Optional: filter for products with a decent rating
+                                     orderby p.Price // Optional: order by price to diversify recommendations
+                                     select p).Take(3) // Limit to top 10 recommendations
+                                     .ToListAsync();
+
+    // Step 2: If you want more randomization, you can shuffle the results
+    var random = new Random();
+    recommendedProducts = recommendedProducts.OrderBy(x => random.Next()).Take(10).ToList();
+
+    // Step 3: Return the recommended products
+    return Ok(recommendedProducts);
+}
+
+
+[HttpGet]
+[Route("/GetCartsByUserId/{userId}")]
+public async Task<IActionResult> GetCartsByUserId(ulong userId)
+{
+    // Log userId to check its value
+    Console.WriteLine($"Looking for user with ID: {userId}");
+
+    // Check if the user exists
+    var userExists = await _context.RegisteredUsers.AnyAsync(u => u.Id == userId);
+    if (!userExists)
+    {
+        // Log to check if it's not finding the user
+        Console.WriteLine($"User with ID {userId} was not found.");
+        return NotFound($"User with ID {userId} not found.");
+    }
+
+    // Retrieve the carts associated with the user
+var userCarts = await (from c in _context.ShoppingCarts
+                       join ip in _context.IncludedProducts on c.Id equals (ulong)ip.FkShoppingCart  // Join with IncludedProducts table
+                       join p in _context.Products on (ulong)ip.FkProduct equals p.Id  // Join with Products table to get price
+                       where (ulong)c.FkRegisteredUser == userId
+                                                   select new
+                            {
+                                ip.Id,
+                                ProductId = ip.FkProduct,
+                                ProductName = p.Name,
+                                ProductPrice = p.Price,
+                                Quantity = ip.Amount
+                            }).ToListAsync();
+
+
+
+    // Check if there are any carts for the user
+    if (userCarts == null || !userCarts.Any())
+    {
+        // Log to check why no carts are found
+        Console.WriteLine($"No carts found for user with ID {userId}.");
+        return NotFound($"No carts found for user with ID {userId}.");
+    }
+
+    // Return the user's carts
+    return Ok(userCarts);
+}
+
+
+
+
+
+
+
    [HttpGet]
 [Route("/GetCartItems/{cartId}")]
 public async Task<IActionResult> GetCartItems(ulong cartId)

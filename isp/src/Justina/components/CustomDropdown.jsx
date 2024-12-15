@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import '../styles/PrekiuSarasas.css'; // Ensure to import your CSS styles
 import axios from "axios";
 
-const CustomDropdown = ({ setFilteredProducts, products }) => {
+const CustomDropdown = ({ setFilteredProducts, products, fetchProductsByCategory, fetchRecommendedProducts }) => {
   const [selectedOption, setSelectedOption] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
@@ -11,7 +11,7 @@ const CustomDropdown = ({ setFilteredProducts, products }) => {
     { value: "", label: "Pasirinkite filtrą" }, // Resets to show all products
     { value: "Gėrimai", label: "Gėrimai" },
     { value: "Užkandžiai", label: "Užkandžiai" },
-    { value: "Rekomenduojama", label: "Rekomenduojama" },
+    { value: "Rekomenduojama", label: "Rekomenduojama" }, // Added recommended option
   ];
 
   // Handle dropdown toggle
@@ -19,39 +19,24 @@ const CustomDropdown = ({ setFilteredProducts, products }) => {
     setIsOpen(!isOpen);
   };
 
-  // Fetch products by category from the API
-  const fetchProductsByCategory = async (category) => {
-    try {
-      const response = await axios.get(`https://localhost:7241/GetProductsByCategory?category=${category}`);
-      if (response.data.length === 0) {
-        setFilteredProducts([]); // Clear products if no products are found
-      } else {
-        setFilteredProducts(response.data); // Update filtered products with response data
-      }
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setFilteredProducts([]); // Clear products on error
-    }
-  };
-
   // Handle option selection
-  const handleOptionClick = (option) => {
+  const handleOptionClick = async (option) => {
     console.log("Filtering started for:", option); // Debugging
-  
+    
     setSelectedOption(option);
     setIsOpen(false);
-  
+
     if (option === "") {
       // Reset to show all products
       setFilteredProducts(products);
+    } else if (option === "Rekomenduojama") {
+      // Fetch recommended products when "Rekomenduojama" is selected
+      fetchRecommendedProducts();
     } else {
-      // Fetch filtered products from the API
+      // Fetch filtered products by category (e.g., "Gėrimai", "Užkandžiai")
       fetchProductsByCategory(option);
     }
   };
-  
-  
-  
 
   return (
     <div>

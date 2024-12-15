@@ -8,6 +8,7 @@ import Back from "../assets/back.png";
 import Payment from "../assets/payment.png";
 import History from "../assets/history.png";
 import "../styles/PirkiniuIstorija.css";
+import { useNavigate } from "react-router-dom";
 
 const KrepselioLangas = () => {
     const [cartItems, setCartItems] = useState([]);
@@ -15,11 +16,14 @@ const KrepselioLangas = () => {
     const [error, setError] = useState(null);
     const [itemToRemove, setItemToRemove] = useState(null); // New state to track item removal
     const cartId = localStorage.getItem("cartId");
+    const navigate = useNavigate();
 
     const handleBackClick = () => {
         window.history.back();
     };
-
+    const handleHistoryClick = () => {
+        navigate("/pirkiniuistorija");
+    };
 
 
     // useEffect to call the API when itemToRemove changes
@@ -106,7 +110,8 @@ const KrepselioLangas = () => {
                 <img 
                     src={History}
                     alt="history" 
-                    className="back-button" 
+                    className="back-button"
+                    onClick={handleHistoryClick}  
                 />
             </div>
         </div>
