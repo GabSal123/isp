@@ -1,18 +1,20 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation  } from 'react-router-dom';
 import "../styles/resstyles.css"
 import SeatSelection from '../components/SeatSelection';
 import axios from 'axios';
 
 const RezervacijosKurimoLangas = ()=> {
-    const { id } = useParams();
+    const { id, edit} = useParams();
+    
     const [movie, setMovie] = useState({title:""})
-
     const navigate = useNavigate();
     const handleResClick = () => {
-      console.log(id)
-      navigate(`/revervacija/${id}`);
+      const user_id = localStorage.getItem("id");
+      console.log("userId",user_id);
+      
+      navigate(`/revervacija`);
   };
   useEffect(()=>{
     const request = axios.get(`https://localhost:7241/GetMovieFromSession?sessionId=${id}`).then((res) => res.data)
@@ -29,8 +31,7 @@ const RezervacijosKurimoLangas = ()=> {
     <div className='resFormContainer'>
     <h1>Rezervacijos detales</h1>
     <p>{movie.title}</p>
-    <SeatSelection session_id={id}/>
-    <button onClick={handleResClick}>Uzsisakyti</button>
+    <SeatSelection session_id={id} edit={edit}/>
   </div>
   )
 }

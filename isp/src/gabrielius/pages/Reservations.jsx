@@ -1,15 +1,21 @@
-import { useState } from 'react'
-import DisplayReservation from '../components/DisplayReservation'
+import { useState, useEffect } from 'react'
+import DisplayMovie from '../components/DisplayMovie'
 import { useNavigate } from 'react-router-dom';
-import { ReactSession } from 'react-client-session';
 import "../styles/resstyles.css"
 import axios from 'axios';
 
 
 const Reservations = ()=> {
-    const id = ReactSession.get("id");
-    console.log(id);
-    const reservations = [
+  const user_id = localStorage.getItem("id");
+    console.log(user_id);
+    const [reservations, setReservations] = useState([])
+
+    useEffect(()=>{
+        axios.get(`https://localhost:7241/GetAllMovies`)
+        .then((res)=>{setReservations(res.data)})
+
+    },[])
+    const reservationsss = [
         {id: 0,
         movie: "Titanikas",
         cost: 12
@@ -29,37 +35,12 @@ const Reservations = ()=> {
 
     ]
 
-    const request = axios.get("https://localhost:7241/WeatherForecast");
-    request
-    .then((res) => res.data)
-    .then((data) => console.log(data))
-    .catch(() => {
-      if (setError) {
-        setError(message);
-      }
-    });
-
 
     const navigate = useNavigate();
 
     const handleResClick = (id) => {
         console.log(id)
-        const belekas = {
-            "title": "string",
-            "startingFrom": "2024-12-14",
-            "showingUntil": "2024-12-14",
-            "cover": "string",
-            "isDubbed": true,
-            "subtitles": true,
-            "description": "string",
-            "trailerLink": "string",
-            "duration": 0,
-            "studio": "string",
-            "language": 0,
-            "ageCensorship": 0
-          }
-        axios.post("https://localhost:7241/AddMovie",belekas)
-        navigate(`/seansai/${id}`);
+        navigate(`/filmas/${id}`);
     };
 
   return (
@@ -67,7 +48,7 @@ const Reservations = ()=> {
     <div>
         <ul className='displayList'>
         {reservations.map(e=>{
-            return <DisplayReservation key={e.id} name={e.movie} cost ={e.cost} onClick={()=>handleResClick(e.id)}/>
+            return <DisplayMovie key={e.id} name={e.title} onClickShow={()=>handleResClick(e.id)}/>
 
         })}
         </ul>

@@ -41,7 +41,7 @@ const SeansuLangas = ()=> {
       const navigate = useNavigate();
       const handleResClick = (id) => {
         console.log(id)
-        navigate(`/seansas/${id}`);
+        navigate(`/seansas/${id}/create`);
     };
 
 
@@ -52,41 +52,51 @@ const SeansuLangas = ()=> {
       }).catch(()=>{setTimes([])})
     },[selectedDate])
 
-  return (
-    <div className="container-reservation-1">
-  <div className="left-section">
-    <h1>{movie.title}</h1>
-    <div className="imagediv"><img src={movieImage} width="300px" height="100%"></img></div>
-  </div>
-  <div className="right-section">
-    <select id="date-select" value={selectedDate} onChange={handleDateChange}>
-      <option value="">-- Choose a date --</option>
-      {dates.map((date, index) => (
-        <option key={index} value={date.day}>
-          {new Date(date.day).toLocaleDateString("en-UK", {
-            year: "numeric",
-            month: "numeric",
-            day: "numeric",
-          })}
-        </option>
-      ))}
-    </select>
-    <ul>
-      {times.map((time, index) => (
-        <DisplayMovieTime
-          key={index}
-          time={time.time}
-          lang={time.language}
-          subs={time.subs}
-          hall = {time.hall}
-          onClick={()=>handleResClick(time.id)}
-        />
-      ))}
-    </ul>
-
-  </div>
-</div>
-  )
+    return (
+      <div className="container-reservation-1">
+        <div className="left-section">
+          <h1>{movie.title}</h1>
+          <div className="imagediv">
+            <img src={movieImage} alt="Movie" width="300px" height="100%" />
+          </div>
+        </div>
+        <div className="right-section">
+          <div className="dropdown-container">
+            <label htmlFor="date-select">Select a date:</label>
+            <select
+              id="date-select"
+              value={selectedDate}
+              onChange={handleDateChange}
+              className="styled-select"
+            >
+              <option value="">-- Choose a date --</option>
+              {dates.map((date, index) => (
+                <option key={index} value={date.day}>
+                  {new Date(date.day).toLocaleDateString("en-UK", {
+                    year: "numeric",
+                    month: "numeric",
+                    day: "numeric",
+                  })}
+                </option>
+              ))}
+            </select>
+          </div>
+          <ul className="times-list">
+            {times.map((time, index) => (
+              <DisplayMovieTime
+                key={index}
+                time={time.time}
+                lang={time.language}
+                subs={time.subs}
+                hall={time.hall}
+                func={time.func}
+                onClick={() => handleResClick(time.id)}
+              />
+            ))}
+          </ul>
+        </div>
+      </div>
+    );
 }
 
 export default SeansuLangas

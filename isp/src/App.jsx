@@ -16,11 +16,13 @@ import PirkiniuIstorija from './Justina/pages/PirkiniuIstorija';
 import KrepselioLangas from './Justina/pages/KrepselioLangas';
 import FilmuIstorija from './Titas/pages/FilmuIstorija';
 import DisplayFilm from './Titas/components/DisplayFilm';
-//import PrekesLangas from './Justina/pages/PrekesLangas';
-//import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
 import ProfilioRedagavimas from './Titas/pages/ProfilioRedagavimas';
 import VerifyEmail from './Titas/components/VerifyEmail';
 import VerifyLogin from './Titas/components/VerifyLogin';
+import PrekesLangas from './Justina/pages/PrekesLangas';
+import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
+
+
 
 function App() {
 
@@ -32,21 +34,23 @@ function App() {
       <Route path="/" element={<Reservations/>}/>
       <Route path="/filmas/:id" element={<FilmoLangas/>}/>
       <Route path="/seansai/:id" element={<SeansuLangas/>}/>
-      <Route path="/revervacija/:id" element={<RezervacijuLangas/>}/>
+      <Route path="/revervacija" element={<RezervacijuLangas/>}/>
       <Route path="/revervacijosinfo/:id" element={<RezervacijosInformacinisLangas/>}/>
-      <Route path="/seansas/:id" element={<RezervacijosKurimoLangas/>}/>
+      <Route path="/seansas/:id/:edit" element={<RezervacijosKurimoLangas/>}/>
       <Route path="/mokejimas" element={<MokejimoLangas/>}/>
       <Route path="/Registracija" element={<Registracija/>}/>
       <Route path="/Prisijungimas" element={<Prisijungimas/>}/>
       <Route path="/Profilis" element={<Profilis/>}/>
       <Route path="/PirkiniuIstorija" element={<PirkiniuIstorija/>}/>
       <Route path="/Krepselis" element={<KrepselioLangas/>}/>
-      {/*<Route path="/Preke/:id" element={<PrekesLangas/>}/>*/}
-      {/*<Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>*/}
+
       <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>
       <Route path="/ProfilioRedagavimas" element={<ProfilioRedagavimas/>}/>
       <Route path="/VerifyEmail" element={<VerifyEmail/>} />
       <Route path="/VerifyLogin" element={<VerifyEmail/>} />
+
+      <Route path="/Preke/:id" element={<PrekesLangas/>}/>
+      <Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>
 
       </Routes>
 

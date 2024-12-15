@@ -34,6 +34,10 @@ const FilmoLangas = ()=> {
 <div className="FilmPageContainer">
   <h1>{ movie.title}</h1>
   <div className='FilmPageContainer2'><img src={movieImage} alt="Movie" /></div>
+  <p className="reservation-name">Aprasymas: {movie.description}</p>
+  <p className="reservation-name">Rodo nuo: {movie.startingFrom}   Iki: {movie.showingUntil}  </p>
+  <p className="reservation-name">Trukme minutemis: {movie.duration}</p>
+  
   <button onClick={handleResClick}>Uzsisakyti</button>
 </div>
   )
