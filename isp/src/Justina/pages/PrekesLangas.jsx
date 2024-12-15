@@ -4,10 +4,12 @@ import Counter from "../components/Counter.jsx"; // Import the counter component
 import Back from '../assets/back.png'; // Back button image
 import Add from '../assets/add.png'; // Add button image
 import '../styles/PrekesLangas.css'; // Import your CSS styles
-import DefaultImage from '../assets/default.png'; // Default image
-import ColaImage from '../assets/Cola.png'; // Import Cola image
-import PepsiImage from '../assets/Pepsi.png'; // Import Pepsi image
-import PopcornImage from '../assets/Popcorn.png'; // Import Popcorn image
+import ColaImage from "../assets/Cola.png";
+import PepsiImage from "../assets/Pepsi.png";
+import FantaImage from "../assets/Fanta.png";
+import SpriteImage from "../assets/Sprite.png";
+import PopcornImage from "../assets/Popcorn.png";
+import DefaultImage from "../assets/default.png";
 import axios from "axios"; // Import axios for API calls
 
 const PrekesLangas = () => {
@@ -104,16 +106,20 @@ const PrekesLangas = () => {
 
 // Function to get product image based on name
 const getImage = (productName) => {
-  switch (productName) {
-    case "Coca-Cola":
-      return ColaImage;
-    case "Pepsi":
-      return PepsiImage;
-    case "Popcorn":
-      return PopcornImage;
-    default:
-      return DefaultImage;
-  }
-};
+    switch (productName) {
+      case "Coca-Cola":
+        return ColaImage; // Use the imported image
+      case "Pepsi":
+        return PepsiImage; // Use the imported image
+        case "Fanta":
+          return FantaImage; // Use the imported image
+          case "Sprite":
+            return SpriteImage; // Use the imported image
+            case "Popcorn":
+              return PopcornImage; // Use the imported image
+      default:
+        return DefaultImage; // Fallback image
+    }
+  };
 
 export default PrekesLangas;
