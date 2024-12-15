@@ -138,10 +138,19 @@
     text-align: center;
     margin-bottom: 20px;
 }
+
+/* Button container to display buttons horizontally */
+.profile-button-container {
+    display: flex;               /* Align buttons horizontally */
+    gap: 20px;                    /* Space between buttons */
+    flex-wrap: wrap;              /* Wrap buttons to the next line if necessary */
+    justify-content: center;     /* Align buttons in the center */
+}
+
 /* Button styling */
 .profile-button {
     padding: 10px 20px;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #4CAF50, #2F8AFC);
     color: white;
     border: none;
     border-radius: 5px;
@@ -152,7 +161,37 @@
 }
 
 .profile-button:hover {
-    background-color: #ae4c4c;
+    background: linear-gradient(135deg, #2F8AFC, #4CAF50);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slightly enlarges the button */
+}
+
+.profile-button:active {
+    transform: scale(0.95); /* Gives a pressed effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+/* Logout button styling */
+.profile-button-logout {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #FF4C4C, #D23E3E);  /* Red gradient background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px;
+}
+
+.profile-button-logout:hover {
+    background: linear-gradient(135deg, #D23E3E, #FF4C4C);  /* Reverse the gradient on hover */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slightly enlarges the button on hover */
+}
+
+.profile-button-logout:active {
+    transform: scale(0.95); /* Gives a pressed effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Responsiveness for small screens */
@@ -167,5 +206,11 @@
 
     .couponList li {
         padding: 12px;
+    }
+
+    /* Stack buttons vertically on small screens */
+    .profile-container .profile-button-container {
+        flex-direction: column;
+        gap: 10px; /* Reduce the gap between buttons */
     }
 }
