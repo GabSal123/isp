@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H/QduvEi6N0Ha2tFzS05GgO8ZUJCVlJGNR3lrJQiwPmSjVYZLGZRAkfIyAUAiuvF5LvHmgxl3NQeW9GAxUVWag==",
+  "dgSpecHash": "1qCPr+Wif8YNLTzzVlAiKOwEQVKmtKHbDGjdFzpFRCIsPCPCXywdaYOS0ot+hN2qe6cx/aGZL1yZ170yWmeOKw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Kompiuteris\\Desktop\\isp\\ispbackas\\ispbackas\\ISPbackas.csproj",
+  "projectFilePath": "C:\\Users\\Kompiuteris\\Desktop\\isp\\ISPbackas\\ISPbackas\\ISPbackas.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Kompiuteris\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Kompiuteris\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.20\\microsoft.entityframeworkcore.7.0.20.nupkg.sha512",
