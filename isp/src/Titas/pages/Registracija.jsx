@@ -102,7 +102,7 @@ const Registracija = ()=> {
    
     //Form submission
     const navigate = useNavigate();
-    const handleSubmit = (temp) => {
+    const handleSubmit = async (temp) => {
         temp.preventDefault();
         if (name === "" || email === "" || password === "" || userName === "" || surName === ""
             || age === "" || gender === "") {
@@ -120,6 +120,7 @@ const Registracija = ()=> {
         }
         else {
 
+            
             axios.post("https://localhost:7241/AddUser", payload);
             console.log(payload);
                                

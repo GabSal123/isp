@@ -27,4 +27,8 @@ public partial class RegisteredUser
     public int Level { get; set; }
 
     public int UserType { get; set; }
+
 }
+
+
+        

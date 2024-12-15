@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ISPbackas.Models;
 using Microsoft.EntityFrameworkCore;
+using ISPbackas.Services;
 
 namespace ISPbackas.Controllers
 {
@@ -9,10 +10,12 @@ namespace ISPbackas.Controllers
     public class UserController : ControllerBase
     {
         private readonly IspContext _context;
+        private readonly EmailService _emailService;
 
-        public UserController(IspContext context)
+        public UserController(IspContext context, EmailService emailService)
         {
             _context = context;
+            _emailService = emailService;
         }
 
 
@@ -222,6 +225,19 @@ namespace ISPbackas.Controllers
 
             return Ok(couponCount);
         }
+        [HttpPost]
+        [Route("/SendEmail")]
+        public async Task<IActionResult> SendEmail([FromBody] string recipientEmail)
+        {
+            await _emailService.SendEmailAsync(recipientEmail, "sv", "sv");
+         
+
+            return Ok("Email sent successfully");
+        }
+
+        
+        
+        
         
 
 
