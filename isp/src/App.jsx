@@ -18,6 +18,7 @@ import FilmuIstorija from './Titas/pages/FilmuIstorija';
 import DisplayFilm from './Titas/components/DisplayFilm';
 //import PrekesLangas from './Justina/pages/PrekesLangas';
 //import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
+import ProfilioRedagavimas from './Titas/pages/ProfilioRedagavimas';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
       {/*<Route path="/Preke/:id" element={<PrekesLangas/>}/>*/}
       {/*<Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>*/}
       <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>
+      <Route path="/ProfilioRedagavimas" element={<ProfilioRedagavimas/>}/>
 
       </Routes>
 

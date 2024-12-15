@@ -37,7 +37,6 @@ const Profilis = () => {
                 
                 const sessionId = localStorage.getItem("id");
                 console.log("Session ID:", parseInt(sessionId, 10));
-                console.log("Type of Session ID:", typeof sessionId);
                 if (!sessionId) {
                     console.error("Session ID is missing");
                     return;
@@ -46,33 +45,26 @@ const Profilis = () => {
                 const response = await axios.get("https://localhost:7241/GetUser", {
                     params: { id: sessionId },
                 });
-                const purchaseResponse = await axios.get("https://localhost:7241/GetPurchases", {
+                
+                const couponCountResponse = await axios.get("https://localhost:7241/GetCouponsCount", {
                     params: { id: sessionId },
                 });
-                let totalSpendings = 0;
-                purchaseResponse.data.forEach(purchase =>{
-                    totalSpendings += purchase.priceValue;
-                })
-                let appliedDiscount = 0;
-                if (totalSpendings < 100) {
-                    appliedDiscount = 0;
-                } else if (totalSpendings >= 100 && totalSpendings < 250) {
-                    appliedDiscount = 3;
-                } else if (totalSpendings >= 250 && totalSpendings < 500) {
-                    appliedDiscount = 5;
-                } else if (totalSpendings >= 500) {
-                    appliedDiscount = 10;
+                
+                console.log("c count", couponCountResponse.data);
+                if(couponCountResponse.data > 0)
+                {
+                    const couponResponse = await axios.get("https://localhost:7241/GetCoupons", {
+                        params: { id: sessionId },
+                    });
+                    
+                    setCoupons(couponResponse.data);
                 }
-                console.log("total spendings: ", totalSpendings);
-                console.log("total discount: ", appliedDiscount);
-                console.log("total loyalty: ", response.data.loyaltyMoney);
-
-                //const updatedLoyaltyCredit = response.data.loyaltyMoney + appliedDiscount;
-                //updateLoyaltyCredit(sessionId, updatedLoyaltyCredit);
-                const couponResponse = await axios.get("https://localhost:7241/GetCoupons", {
-                    params: { id: sessionId },
-                });
-                setCoupons(couponResponse.data);
+                else{
+                    setCoupons([]);
+                }
+                
+                
+                //setCoupons(couponResponse.data);
                 setUser(response.data);                     
             } catch (error) {
                 console.error("Error fetching user data:", error);
@@ -81,33 +73,50 @@ const Profilis = () => {
 
         fetchUserData();
     }, []);
-    const updateLoyaltyCredit = async (userId, loyaltyCredit) => {
+
+    const handleUpdateUserCredit = async () => {
+        const sessionId = localStorage.getItem("id");
+        
+        if (!sessionId) {
+            console.error("Session ID is missing");
+            return;
+        }
+
         try {
-            const response = await axios.put("https://localhost:7241/UpdateLoyalty", {loyaltyCredit}, {
-                params: { id: userId },
+            
+            const response = await axios.put("https://localhost:7241/UpdateUserCredit", null, {
+                params: { id: sessionId },
             });
-            console.log("Updated data: ", response.data);
+           
+            (response.data);
+            alert("Vartotojo taikoma nuolaida atnaujinta sėkmingai!");
+            window.location.reload();
+
         } catch (error) {
-            console.error("Error updating loyalty credit:", error);
+            console.error("Kliūtis atnaujinant vartotojo taikomą nuolaidą:", error);
+            alert("Vartotojo taikoma nuolaida neatnaujinta.");
         }
     };
 
     
 
-    
+ 
 
     const handleNavigateFilm = () => {
         navigate('/FilmuIstorija');
     };
 
     const handleNavigateReservation = () => {
-        navigate(`/`);  //?????????????????????????
+        navigate(`/`);  
+    };
+    const handleNavigateProfileUpdate = () => {
+        navigate('/Profilioredagavimas');
     };
     return (
         <body className="registration-body">
             <div>
                 {!user ? ( 
-                    <p>Loading user data...</p>
+                    <p>Kraunama vartotojo informacija...</p>
                 ) : (
                     <ul className="userList">
                         <li key={user.id}>
@@ -128,9 +137,11 @@ const Profilis = () => {
                     </ul>
                 )}
                <div className="profile-container">
-                    {!coupons ? (
-                        <p>Loading coupon data...</p>
-                    ) : (
+               {coupons === null ? (
+                <p>Kraunama kuponų informacija...</p>
+                ) : coupons.length === 0 ? (
+                <p><strong>Vartotojas neturi jokių kuponų</strong></p>
+                ) : (
                     <>
                          <h1 className="profile-h1">Vartotojo kuponai</h1>
                             <ul className="couponList">
@@ -153,6 +164,12 @@ const Profilis = () => {
                     </button>
                     <button className="profile-button" onClick={handleNavigateReservation}>
                         Rezervacijos
+                    </button>
+                    <button className="profile-button" onClick={handleUpdateUserCredit}>
+                        Atnaujinti taikomą nuolaidą
+                    </button>
+                    <button className="profile-button" onClick={handleNavigateProfileUpdate}>
+                        Atnaujinti profilio duomenis
                     </button>
                 </div>
             </div>

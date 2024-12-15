@@ -28,15 +28,14 @@ const FilmuIstorija = () => {
                 // Extract movie IDs and fetch corresponding movies
                 const movieRequests = watchedFilms.map((film) =>
                     axios.get('https://localhost:7241/GetMovie', {
-                        params: { id: film.id },
+                        params: { id: film.fkMovie },
                     })
                 );
                 const movieResponses = await Promise.all(movieRequests);
                 const moviesData = movieResponses.map((response) => response.data);
-                setMovies(moviesData);
-
-                console.log('Watched Films:', watchedFilms);
-                console.log('Movies:', moviesData);
+                setMovies(moviesData);             
+            
+              
             } catch (error) {
                 console.error('Error fetching film data:', error);
             }
@@ -52,32 +51,38 @@ const FilmuIstorija = () => {
     return (
         <body className="filmhistory-body">
             <div>
-                {watchedFilm.length === 0 ? (
-                    <p>Loading film data...</p>
-                ) : (
+                {watchedFilm === null ? (
+                    <p>Kraunama filmų informacija...</p>
+                ): watchedFilm.length === 0 ?(
+                    <p><strong>Vartotojas neturi jokių peržiūrėtų filmų</strong></p>
+                ):(
                     <ul className="filmList">
                         {watchedFilm.map((film, index) => {
-                            // Match movie using the logic of index % movie.length
+                            
                             const matchingMovie = movies[index % movies.length];
-
-                            console.log("Film:", film);
-                            console.log("Matching movie:", matchingMovie);
+                            const actualMovie = Array.isArray(matchingMovie) && matchingMovie.length > 0 ? matchingMovie[0] : matchingMovie;                                            
 
                             return matchingMovie ? (
                                 <li key={film.id}>
                                     <DisplayFilm
-                                        movieTitle={matchingMovie.title}
+                                        movieTitle={actualMovie.title}
                                         rating={film.rating}
                                         date={film.watchDate}
                                         comment={film.comment}
                                     />
                                 </li>
                             ) : (
-                                <li key={film.id}>No matching movie found</li>
+                                <li key={film.id}>Nerasta peržiūrėtų filmų</li>
                             );
                         })}
                     </ul>
                 )}
+            </div>
+            <div className="filmbutton-container">
+                    <button className="film-button" onClick={handleNavigateProfile}>
+                        Atgal į profilį
+                    </button>
+                    
             </div>
         </body>
     );

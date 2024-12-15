@@ -147,8 +147,86 @@ namespace ISPbackas.Controllers
             return Ok(coupons);
         }
 
+        [HttpPut]
+        [Route("/UpdateUserCredit")]
+        public async Task<IActionResult> UpdateUserCredit(int id)
+        {
+            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Id == (ulong)id );
+
+            if(user == null)
+            {
+                return NotFound("User data not found");
+            }
+            var purchases = await _context.Purchases.Where(u => u.FkRegisteredUser == id).ToListAsync();
+            if(purchases == null || !purchases.Any())
+            {
+                return NotFound("Purchases data not found");
+            }
+            double totalSpent = 0;
+            foreach(var purchase in purchases)
+            {
+                totalSpent += purchase.PriceValue;
+            }
+            double appliedDiscount = 0;
+            if (totalSpent < 100) {
+                appliedDiscount = 0;
+            } else if (totalSpent >= 100 && totalSpent < 250) {
+                appliedDiscount = 3;
+            } else if (totalSpent >= 250 && totalSpent < 500) {
+                appliedDiscount = 5;
+            } else if (totalSpent >= 500) {
+                appliedDiscount = 10;
+            }
+
+            user.LoyaltyMoney = appliedDiscount;
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+
+        [HttpPut]
+        [Route("/UpdateUserCredentials")]
+        public async Task<IActionResult> UpdateUserCredentials(int id, string name, string surname, string username,
+        string password, string email, int age, int gender)
+        {
+            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Id == (ulong)id );
+
+            if(user == null)
+            {
+                return NotFound("User data not found");
+            }
+
+            user.Name = name;
+            user.Surname = surname;
+            user.Username = username;
+            user.Password = password;
+            user.Email = email;
+            user.Age = age;
+            user.Gender = gender;
+
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+        
+        [HttpGet]
+        [Route("/GetCouponsCount")]
+        public async Task<IActionResult> GetCouponsCount(int id)
+        {
+            var coupons = await _context.Coupons.Where(u => u.FkRegisteredUser == id).ToListAsync();
+            int couponCount = coupons?.Count() ?? 0; 
+
+            if (couponCount == 0)
+            {
+                return Ok(new { message = "Coupons data not found", couponCount });
+            }
+                
+
+            return Ok(couponCount);
+        }
+        
+
 
     }
 
+        
     
 }
