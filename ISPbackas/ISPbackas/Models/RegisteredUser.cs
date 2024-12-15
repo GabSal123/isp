@@ -27,6 +27,8 @@ public partial class RegisteredUser
     public int Level { get; set; }
 
     public int UserType { get; set; }
+    public string? VerificationToken {get; set;}
+    public int Verified {get;set;}
 
 }
 

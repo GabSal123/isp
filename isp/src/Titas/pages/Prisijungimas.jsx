@@ -28,7 +28,11 @@ const  Prisijungimas = () => {
         
         const responseId = await axios.get("https://localhost:7241/GetId", {params: {username: userName , password: password}});
         const id = responseId.data;
-        if (id !== null || id !== undefined) {
+        const response = await axios.get("https://localhost:7241/GetUser", {
+            params: { id: id },
+        });
+        console.log("Verified status: ", response.data.verified);
+        if (response.data.verified === 1) {
             setSubmitted(true);
             setError(false);
             localStorage.setItem("id", id);

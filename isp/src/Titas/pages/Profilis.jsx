@@ -129,9 +129,9 @@ const Profilis = () => {
                                 profilepicture={user.profilepicture || defaultPicture} 
                                 age={user.age}
                                 loyaltycredit={user.loyaltyMoney}
-                                gender={userGenders[user.gender] || "Unknown"}
-                                level={userLevels[user.level || "Unknown"]}
-                                usertype={userTypes[user.userType] || "Unknown"}
+                                gender={userGenders[user.gender] || "Kita"}
+                                level={userLevels[user.level || "Kita"]}
+                                usertype={userTypes[user.userType] || "Kita"}
                             />
                         </li>
                     </ul>

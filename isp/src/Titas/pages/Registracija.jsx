@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import '../styles/RegistrationStyles.css';
 import defaultPicture from '../assets/defaultPP.png';
+import VerifyEmail from '../components/VerifyEmail';
 
 const Registracija = ()=> {
     const [userName, setUsername] = useState("");
@@ -107,29 +108,42 @@ const Registracija = ()=> {
         if (name === "" || email === "" || password === "" || userName === "" || surName === ""
             || age === "" || gender === "") {
             setEmptyFieldsError(true);
-            setSubmitted(false);            
+            setSubmitted(false);     
+            return;       
 
         }
         if(userName.length < 6 || password.length < 6){
             setUserError(true);
             setSubmitted(false); 
+            return;
         }
         if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email))) {
             setGmailError(true);
             setSubmitted(false);
+            return;
         }
-        else {
-
+        try {
             
-            axios.post("https://localhost:7241/AddUser", payload);
-            console.log(payload);
-                               
+            await axios.post("https://localhost:7241/AddUser", payload);
+    
+            
+            await axios.post("https://localhost:7241/SendVerificationEmail", email, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+    
+            
             setSubmitted(true);
             setEmptyFieldsError(false);
             setUserError(false);
             setGmailError(false);
+    
             
             navigate(`/prisijungimas`);
+    
+        } catch (error) {
+            
+            console.error(error);
+            setSubmitted(false);
         }
     };
 

@@ -229,11 +229,52 @@ namespace ISPbackas.Controllers
         [Route("/SendEmail")]
         public async Task<IActionResult> SendEmail([FromBody] string recipientEmail)
         {
-            await _emailService.SendEmailAsync(recipientEmail, "sv", "sv");
+            await _emailService.SendEmailAsync(recipientEmail, "Test", "test2");
          
 
             return Ok("Email sent successfully");
         }
+        [HttpPost]
+        [Route("/SendVerificationEmail")]
+        public async Task<IActionResult> SendVerificationEmail([FromBody] string recipientEmail)
+        {
+            var user = await _context.RegisteredUsers.FirstOrDefaultAsync(u => u.Email == recipientEmail);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+            var token = Guid.NewGuid().ToString();
+
+            user.VerificationToken = token;
+            user.Verified = 0;
+            await _context.SaveChangesAsync();
+
+            var verificationLink = $"https://localhost:7241/VerifyEmail?token={token}";
+            await _emailService.SendEmailAsync(recipientEmail, "Email Verification",
+            $"Patvirtinkite savo paštą paspausdami <a href=\"{verificationLink}\">šią nuorodą</a>");
+
+            return Ok("Verification email sent");
+        
+        }
+        [HttpGet]
+        [Route("/VerifyEmail")]
+        public async Task<IActionResult> VerifyEmail([FromQuery] string token)
+        {
+            var user = await _context.RegisteredUsers.FirstOrDefaultAsync(u => u.VerificationToken == token);
+
+            if (user == null)
+                return BadRequest("Invalid token");
+
+            user.Verified = 1;
+            user.VerificationToken = null; 
+            
+            await _context.SaveChangesAsync();
+
+            return Ok("El. paštas patvirtinas sėkmingai");
+        }
+       
+        
+        
 
         
         
