@@ -3,6 +3,8 @@ using ISPbackas.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 using System.Linq;
+using Stripe;
+using System.Threading.Tasks;
 
 namespace ISPbackas.Controllers
 {
@@ -11,10 +13,125 @@ namespace ISPbackas.Controllers
     public class ReservationController : ControllerBase
     {
         private readonly IspContext _context;
+        private readonly StripePaymentService _stripeService;
 
-        public ReservationController(IspContext context)
+        public ReservationController(IspContext context, StripePaymentService stripeService)
         {
             _context = context;
+            _stripeService = stripeService; ;
+        }
+
+        [HttpPost]
+        [Route("/ChangeCartStats")]
+        public async Task<IActionResult> ChangeCartStats(int shoppingCartId, double price,string holder,string digits, int userId) {
+            ShoppingCart sc = await _context.ShoppingCarts.FirstOrDefaultAsync(x => (int)x.Id == shoppingCartId && x.State == 1);
+            if (sc == null)
+            {
+                return NotFound(new { message = "Shopping cart not found" });
+            }
+
+
+            sc.State = 4;
+ 
+            Purchase purchase = new Purchase();
+            purchase.Bank = "Swed";
+            purchase.PriceValue = price;
+            purchase.FkShoppingCart = shoppingCartId;
+            purchase.CardInfo = holder + " " + digits;
+            purchase.Date = DateTime.Today;
+            purchase.FkRegisteredUser = userId;
+            purchase.DayTimeSeconds = 0;
+            _context.Purchases.Add(purchase);
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("/CreatePaymentIntent")]
+        public async Task<IActionResult> CreatePaymentIntent(int shoppingCartId)
+        {
+            var tickets = await _context.MovieTickets.Where(x => x.FkShoppingCart == shoppingCartId).ToListAsync();
+            var productsIncluded = await _context.IncludedProducts.Where(x => x.FkShoppingCart == shoppingCartId).Select(x => new { x.Amount,x.FkProduct}).ToListAsync();
+            var prods = await _context.Products.ToListAsync();
+
+            double totalPrice = 0;
+            foreach (var productInc in productsIncluded)
+            {
+                foreach (var product in prods) 
+                {
+                    if (productInc.FkProduct == (int)product.Id) 
+                    {
+                        totalPrice += product.Price * productInc.Amount;
+                    }
+                }
+            }
+            foreach (var ticket in tickets)
+            {
+                totalPrice += ticket.Price;
+            }
+
+            long amountInCents = (long)(totalPrice * 100); 
+
+            var paymentIntent = await _stripeService.CreatePaymentIntentAsync(amountInCents);
+
+            return Ok(new { clientSecret = paymentIntent });
+        }
+
+
+        [HttpGet]
+        [Route("/GetPrice")]
+        public async Task<IActionResult> GetPrice(int shoppingCartId)
+        {
+            var tickets = await _context.MovieTickets.Where(x => x.FkShoppingCart == shoppingCartId).ToListAsync();
+            var productsIncluded = await _context.IncludedProducts.Where(x => x.FkShoppingCart == shoppingCartId).Select(x => new { x.Amount, x.FkProduct }).ToListAsync();
+            var prods = await _context.Products.ToListAsync();
+
+            double totalPrice = 0;
+            foreach (var productInc in productsIncluded)
+            {
+                foreach (var product in prods)
+                {
+                    if (productInc.FkProduct == (int)product.Id)
+                    {
+                        totalPrice += product.Price * productInc.Amount;
+                    }
+                }
+            }
+            foreach (var ticket in tickets)
+            {
+                totalPrice += ticket.Price;
+            }
+
+
+            return Ok(totalPrice );
+        }
+
+        [HttpPost]
+        [Route("/ConfirmPayment")]
+        public async Task<IActionResult> ConfirmPayment(string paymentIntentId, string paymentMethodId)
+        {
+            try
+            {
+
+                var paymentIntent = await _stripeService.ConfirmPaymentIntent(paymentIntentId, paymentMethodId);
+
+
+                if (paymentIntent.Status == "succeeded")
+                {
+
+
+                    return Ok(new { success = true, message = "Payment succeeded!" });
+                }
+                else
+                {
+                    return BadRequest(new { success = false, message = "Payment failed!" });
+                }
+            }
+            catch (StripeException ex)
+            {
+                return BadRequest(new { success = false, message = ex.Message });
+            }
         }
 
 
@@ -181,7 +298,7 @@ namespace ISPbackas.Controllers
             }
             else 
             {
-                var takenSeats = tickets.Select(x => new {x.Row, x.Seat });
+                var takenSeats = tickets.Select(x => new {x.Row, x.Seat, x.FkShoppingCart });
                 var obj = new { takenSeats, hall.number_of_rows, hall.number_of_columns, price };
                 return Ok(obj);
             }
@@ -326,5 +443,29 @@ namespace ISPbackas.Controllers
             return Ok();
 
         }
+
+        [HttpGet]
+        [Route("/GetReservationInfo")]
+        public async Task<IActionResult> GetReservationInfo(int cartId, int sessionId) {
+            var tickets = await _context.MovieTickets.Where(x => x.FkMovieSession == sessionId && x.FkShoppingCart == cartId).ToListAsync();
+
+
+            return Ok(tickets);
+        }
+
+        [HttpGet]
+        [Route("/GetAllMovies")]
+        public async Task<IActionResult> GetAllMovies()
+        {
+            var movies = await _context.Movies.ToListAsync();
+
+
+            return Ok(movies);
+        }
+
     }
 }
+
+
+
+

@@ -5,6 +5,8 @@ using ISPbackas.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
 builder.Services.AddSingleton<EmailService>();
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CORSPolicy", builder =>
@@ -12,6 +14,7 @@ builder.Services.AddCors(options =>
         builder.AllowAnyMethod().AllowAnyHeader().WithOrigins("http://localhost:5173", "https://appname.azurestaticapps.net");
     });
 });
+builder.Services.AddScoped<StripePaymentService>();
 
 builder.Services.AddDbContext<IspContext>(options =>
     options.UseMySql(
@@ -19,6 +22,7 @@ builder.Services.AddDbContext<IspContext>(options =>
         ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection"))
     )
 );
+
 
 
 builder.Services.AddControllers();
