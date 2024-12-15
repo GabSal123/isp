@@ -28,6 +28,7 @@ public partial class RegisteredUser
 
     public int UserType { get; set; }
 <<<<<<< HEAD
+<<<<<<< HEAD
     public string? VerificationToken {get; set;}
     public int Verified {get;set;}
     public int isloggedin {get;set;}
@@ -36,6 +37,9 @@ public partial class RegisteredUser
 
 
         
+=======
+}
+>>>>>>> gabrielius
 =======
 }
 >>>>>>> gabrielius
