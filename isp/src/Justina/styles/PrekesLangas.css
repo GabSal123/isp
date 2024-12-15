@@ -1,0 +1,110 @@
+/* General Reset */
+/* General Reset */
+.prekes-body {
+    margin: 0;
+    display: flex;
+    /* Enable flexbox layout */
+    flex-direction: column;
+    /* Arrange items in a column (optional, use 'row' if you want horizontal) */
+    justify-content: center;
+    /* Center items vertically */
+    align-items: center;
+    /* Center items horizontally */
+    height: 100vh;
+    /* Full viewport height */
+    background-color: #ddd;
+    /* Background color */
+    font-family: Arial, sans-serif;
+    /* Font family */
+}
+
+
+/* Flex Container */
+.flex-container {
+    display: flex;
+    align-items: center;
+    /* Center items vertically */
+    justify-content: center;
+    /* Center all items horizontally */
+    gap: 20px;
+    /* Space between the items */
+}
+
+/* Back Button */
+.back-button {
+    height: 50px;
+    /* Adjust the height of the image */
+    cursor: pointer;
+    /* Show a pointer cursor on hover */
+    transition: transform 0.2s;
+    /* Add a hover effect */
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+    /* Slightly enlarge on hover */
+}
+
+/* Counter Styling */
+.counter {
+    position: relative;
+    width: 120px;
+    /* Fixed width for consistent size */
+    height: 80px;
+    /* Fixed height for consistent size */
+    background-image: url('../assets/Counter.png');
+    /* Path to your local image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 0;
+    /* No rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+/* Add Button */
+.add-button {
+    height: 100px;
+    /* Adjust the height of the image */
+    cursor: pointer;
+    /* Show a pointer cursor on hover */
+    transition: transform 0.2s;
+    /* Add a hover effect */
+}
+
+.add-button:hover {
+    transform: scale(1.1);
+    /* Slightly enlarge on hover */
+}
+
+/* Counter Value */
+#counter-value {
+    margin: 0 15px;
+    /* Optional: Margin can be adjusted as needed */
+    font-size: 20px;
+    color: #000;
+    font-weight: bold;
+}
+
+/* Counter Buttons */
+.counter-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 20px;
+    color: #d9a106;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.3s;
+    justify-content: space-between;
+}
+
+.counter-btn:hover {
+    color: #ffb700;
+}
+
+.popcorn-image {
+    height: 500px;
+    margin-bottom: 20px;
+}

@@ -1,0 +1,100 @@
+.cup {
+    position: relative;
+    width: 200px;
+    /* Set to match your cup image dimensions */
+    height: 250px;
+    /* Set to match your cup image dimensions */
+    background-image: url('../assets/Cup.png');
+    /* Path to your cup image */
+    background-size: contain;
+    /* Ensures the entire cup image is visible */
+    background-repeat: no-repeat;
+    /* Prevents repeating the image */
+    background-position: center;
+    /* Centers the image in the container */
+    overflow: hidden;
+    /* Prevents any overflow */
+}
+
+.cup-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    /* Adjust to fit inside the circular area */
+    height: 120px;
+    /* Adjust to fit inside the circular area */
+    background-image: url('../assets/Popcorn.png');
+    /* Path to your uploaded image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.flex-container {
+    display: flex;
+    align-items: center;
+    /* Center items vertically */
+    justify-content: space-between;
+    /* Center all items horizontally */
+    gap: 20px;
+    /* Space between the items */
+}
+
+.dropdown {
+    position: relative;
+    width: 120px;
+    /* Fixed width */
+    height: 80px;
+    /* Fixed height */
+    background-image: url('../assets/Counter.png');
+    /* Path to your local image */
+    background-size: cover;
+    background-position: center;
+    border-radius: 0;
+    /* No rounded corners */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    cursor: pointer;
+    /* Change cursor to pointer for better UX */
+}
+
+.dropdown-display {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    /* Text color */
+}
+
+.dropdown-options {
+    position: absolute;
+    top: 100%;
+    /* Position below the dropdown */
+    left: 0;
+    right: 0;
+    background-color: white;
+    /* Background for options */
+    border: 1px solid #ccc;
+    /* Border around options */
+    z-index: 10;
+    /* Ensure it sits above other elements */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    /* Shadow effect */
+}
+
+.dropdown-option {
+    padding: 10px;
+    /* Spacing around option */
+    cursor: pointer;
+    /* Pointer on hover */
+}
+
+.dropdown-option:hover {
+    background-color: #f0f0f0;
+    /* Background change on hover */
+}
