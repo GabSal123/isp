@@ -14,7 +14,7 @@ const FilmuIstorija = () => {
             try {
                 const sessionId = localStorage.getItem('id');
                 if (!sessionId) {
-                    console.error('Session ID is missing');
+                    console.error('Sesijos id nerastas');
                     return;
                 }
 
@@ -37,7 +37,7 @@ const FilmuIstorija = () => {
             
               
             } catch (error) {
-                console.error('Error fetching film data:', error);
+                console.error('Klaida ieškant filmų informacijos:', error);
             }
         };
 

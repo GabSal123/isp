@@ -4,14 +4,16 @@ import { useParams } from 'react-router-dom';
 import { ReactSession } from 'react-client-session';
 import axios from 'axios';
 import '../styles/ProfileStyles.css';
-import defaultPicture from '../assets/defaultPP.png'; //Shouldnt be a default picture, but hardcoded for now
+import defaultPicture from '../assets/defaultPP.png'; 
 import DisplayUser from '../components/DisplayUser';
 import DisplayCoupon from '../components/DisplayCoupon';
 
 const Profilis = () => {
     const [user, setUser] = useState(null); 
     const [coupons, setCoupons] = useState([]);
-    
+    const [userType, setLoginStatus] = useState("");
+    const [sessionValid, setSessionValid] = useState(false);
+
     const navigate = useNavigate();
     const userTypes = {
         1: "Administratorius",
@@ -36,21 +38,28 @@ const Profilis = () => {
             try {
                 
                 const sessionId = localStorage.getItem("id");
-                console.log("Session ID:", parseInt(sessionId, 10));
+               
                 if (!sessionId) {
-                    console.error("Session ID is missing");
+                    console.error("Sesijos id nerastas");
                     return;
                 }
                 
                 const response = await axios.get("https://localhost:7241/GetUser", {
                     params: { id: sessionId },
                 });
+                if(response.data.isloggedin === 0){
+                    setSessionValid(false);  
+                    return;
+                }
+                else{
+                    setSessionValid(true); 
+                }
                 
                 const couponCountResponse = await axios.get("https://localhost:7241/GetCouponsCount", {
                     params: { id: sessionId },
                 });
                 
-                console.log("c count", couponCountResponse.data);
+                
                 if(couponCountResponse.data > 0)
                 {
                     const couponResponse = await axios.get("https://localhost:7241/GetCoupons", {
@@ -67,7 +76,7 @@ const Profilis = () => {
                 //setCoupons(couponResponse.data);
                 setUser(response.data);                     
             } catch (error) {
-                console.error("Error fetching user data:", error);
+                console.error("Kliūtis ieškant informacijos:", error);
             }
         };
 
@@ -78,7 +87,7 @@ const Profilis = () => {
         const sessionId = localStorage.getItem("id");
         
         if (!sessionId) {
-            console.error("Session ID is missing");
+            console.error("Sesijos id nerastas");
             return;
         }
 
@@ -112,6 +121,23 @@ const Profilis = () => {
     const handleNavigateProfileUpdate = () => {
         navigate('/Profilioredagavimas');
     };
+    const handleLogout = async () => {
+        const sessionId1 = localStorage.getItem("id");
+        const response1 = await axios.put("https://localhost:7241/UpdateLoginStatus", null, {
+            params: { id: sessionId1 },
+        });
+        (response1.data);
+        navigate('/Prisijungimas');
+    };
+    if (!sessionValid) {
+        return (
+            <body className="registration-body">
+                <div className="session-error">
+                    <h1><strong>Patvirtinkite savo prisijungimą paspausdami nuorodą, kurią gavote į savo paštą ir atnaujinkite puslapį.</strong></h1>
+                </div>
+            </body>
+        );
+    }
     return (
         <body className="registration-body">
             <div>
@@ -159,6 +185,7 @@ const Profilis = () => {
                 </div>
 
                 <div className="profile-container">
+                    <div className="profile-button-container">
                     <button className="profile-button" onClick={handleNavigateFilm}>
                         Filmų istorija
                     </button>
@@ -171,6 +198,10 @@ const Profilis = () => {
                     <button className="profile-button" onClick={handleNavigateProfileUpdate}>
                         Atnaujinti profilio duomenis
                     </button>
+                    <button className="profile-button-logout" onClick={handleLogout}>
+                        Atsijungti
+                    </button>
+                    </div>
                 </div>
             </div>
         </body>

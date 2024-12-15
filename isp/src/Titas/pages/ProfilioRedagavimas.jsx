@@ -207,7 +207,7 @@ const ProfilioRedagavimas = () => {
                     {errorMessageEmail()}
                 </div>
                 <form>
-                    {/*Inputs for form data */}
+                    
                     <label className = "registration-label">Prisijungimo vardas</label>
                     <input 
                         onChange = {handleUserName}

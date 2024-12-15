@@ -33,13 +33,31 @@ const  Prisijungimas = () => {
         });
         console.log("Verified status: ", response.data.verified);
         if (response.data.verified === 1) {
-            setSubmitted(true);
-            setError(false);
-            localStorage.setItem("id", id);
-            navigate(`/Profilis`);
+            try{
+                await axios.post("https://localhost:7241/SendLoginEmail", response.data.email, {
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const responseLogin = await axios.get("https://localhost:7241/GetUser", {
+                    params: { id: id },
+                });
+                
+                
+                setSubmitted(true);
+                setError(false);
+                localStorage.setItem("id", id);
+                navigate(`/Profilis`);
+                
+                
+            }
+            catch (error){
+                console.error(error);
+                setSubmitted(false);
+            }
+            
         } else {
             setError(true);
             setSubmitted(false);
+            return;
         }
     };
 

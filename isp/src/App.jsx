@@ -20,6 +20,7 @@ import DisplayFilm from './Titas/components/DisplayFilm';
 //import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
 import ProfilioRedagavimas from './Titas/pages/ProfilioRedagavimas';
 import VerifyEmail from './Titas/components/VerifyEmail';
+import VerifyLogin from './Titas/components/VerifyLogin';
 
 function App() {
 
@@ -44,7 +45,8 @@ function App() {
       {/*<Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>*/}
       <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>
       <Route path="/ProfilioRedagavimas" element={<ProfilioRedagavimas/>}/>
-      <Route path="/Verify-Email" element={<VerifyEmail/>} />
+      <Route path="/VerifyEmail" element={<VerifyEmail/>} />
+      <Route path="/VerifyLogin" element={<VerifyEmail/>} />
 
       </Routes>
 

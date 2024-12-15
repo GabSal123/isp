@@ -25,7 +25,7 @@ namespace ISPbackas.Controllers
         {
             if(coupon == null)
             {
-                return BadRequest("Coupon data is required.");
+                return BadRequest("Kuponų informacija nerasta");
             }
 
             _context.Coupons.Add(coupon);
@@ -41,7 +41,7 @@ namespace ISPbackas.Controllers
         {
             if(registeredUser == null)
             {
-                return BadRequest("RegisteredUser data is required.");
+                return BadRequest("Vartotojo informacija nerasta/neteisinga");
             }
 
             _context.RegisteredUsers.Add(registeredUser);
@@ -59,7 +59,7 @@ namespace ISPbackas.Controllers
 
             if(user == null)
             {
-                return NotFound($"User with id: {id} is not registered");   
+                return NotFound($"Vartotojas su id: {id} nėra užsiregistravęs");   
             }
             
             return Ok(user);
@@ -73,7 +73,7 @@ namespace ISPbackas.Controllers
 
             if (registeredUser == null)
             {
-                return BadRequest("User not found");
+                return BadRequest("Vartotojas nerastas");
             }
 
             var id = registeredUser.Id;
@@ -90,7 +90,7 @@ namespace ISPbackas.Controllers
 
             if(films == null || !films.Any())
             {
-                return NotFound("Film data not found");
+                return NotFound("Peržiūrėti filmai nerasti");
             }
 
             return Ok(films);
@@ -103,7 +103,7 @@ namespace ISPbackas.Controllers
 
             if(movies == null || !movies.Any())
             {
-                return NotFound("Movies data not found");
+                return NotFound("Filmai nerasti");
             }
 
             return Ok(movies);
@@ -116,7 +116,7 @@ namespace ISPbackas.Controllers
 
             if(purchases == null || !purchases.Any())
             {
-                return NotFound("Purchases data not found");
+                return NotFound("Pirkiniai nerasti");
             }
 
             return Ok(purchases);
@@ -129,7 +129,7 @@ namespace ISPbackas.Controllers
 
             if(user == null)
             {
-                return NotFound("User data not found");
+                return NotFound("Vartotojas nerastas");
             }
 
             user.LoyaltyMoney = loyaltyCredit;
@@ -144,7 +144,7 @@ namespace ISPbackas.Controllers
 
             if(coupons == null || !coupons.Any())
             {
-                return NotFound("Coupons data not found");
+                return NotFound("Kuponai nerasti");
             }
 
             return Ok(coupons);
@@ -158,12 +158,12 @@ namespace ISPbackas.Controllers
 
             if(user == null)
             {
-                return NotFound("User data not found");
+                return NotFound("Vartotojas nerastas");
             }
             var purchases = await _context.Purchases.Where(u => u.FkRegisteredUser == id).ToListAsync();
             if(purchases == null || !purchases.Any())
             {
-                return NotFound("Purchases data not found");
+                return NotFound("Pirkiniai nerasti");
             }
             double totalSpent = 0;
             foreach(var purchase in purchases)
@@ -195,7 +195,7 @@ namespace ISPbackas.Controllers
 
             if(user == null)
             {
-                return NotFound("User data not found");
+                return NotFound("Vartotojas nerastas");
             }
 
             user.Name = name;
@@ -219,7 +219,7 @@ namespace ISPbackas.Controllers
 
             if (couponCount == 0)
             {
-                return Ok(new { message = "Coupons data not found", couponCount });
+                return Ok(new { message = "Nerasti kuponai", couponCount });
             }
                 
 
@@ -232,7 +232,7 @@ namespace ISPbackas.Controllers
             await _emailService.SendEmailAsync(recipientEmail, "Test", "test2");
          
 
-            return Ok("Email sent successfully");
+            return Ok("Paštas išsiūstas sėkmingai");
         }
         [HttpPost]
         [Route("/SendVerificationEmail")]
@@ -241,19 +241,19 @@ namespace ISPbackas.Controllers
             var user = await _context.RegisteredUsers.FirstOrDefaultAsync(u => u.Email == recipientEmail);
             if (user == null)
             {
-                return NotFound("User not found");
+                return NotFound("Vartotojas nerastas");
             }
             var token = Guid.NewGuid().ToString();
 
             user.VerificationToken = token;
-            user.Verified = 0;
+            user.Verified = 0;       
             await _context.SaveChangesAsync();
 
             var verificationLink = $"https://localhost:7241/VerifyEmail?token={token}";
             await _emailService.SendEmailAsync(recipientEmail, "Email Verification",
             $"Patvirtinkite savo paštą paspausdami <a href=\"{verificationLink}\">šią nuorodą</a>");
 
-            return Ok("Verification email sent");
+            return Ok("Patvirtinimo laiškas išsiūstas");
         
         }
         [HttpGet]
@@ -272,6 +272,64 @@ namespace ISPbackas.Controllers
 
             return Ok("El. paštas patvirtinas sėkmingai");
         }
+
+        [HttpPost]
+        [Route("/SendLoginEmail")]
+        public async Task<IActionResult> SendLoginEmail([FromBody] string recipientEmail)
+        {
+            var user = await _context.RegisteredUsers.FirstOrDefaultAsync(u => u.Email == recipientEmail);
+            if (user == null)
+            {
+                return NotFound("Vartotojas nerastas");
+            }
+            var token = Guid.NewGuid().ToString();
+
+            user.VerificationToken = token;
+            user.isloggedin = 0;       
+            await _context.SaveChangesAsync();
+
+            var verificationLink = $"https://localhost:7241/VerifyLogin?token={token}";
+            await _emailService.SendEmailAsync(recipientEmail, "Login Verification",
+            $"Patvirtinkite savo prisijungimą paspausdami <a href=\"{verificationLink}\">šią nuorodą</a>");
+
+            return Ok("Prisijungimo patvirtinimo laiškas išsiūstas");
+        
+        }
+
+        [HttpGet]
+        [Route("/VerifyLogin")]
+        public async Task<IActionResult> VerifyLogin([FromQuery] string token)
+        {
+            var user = await _context.RegisteredUsers.FirstOrDefaultAsync(u => u.VerificationToken == token);
+
+            if (user == null)
+                return BadRequest("Invalid token");
+
+            user.isloggedin = 1;
+            user.VerificationToken = null; 
+            
+            await _context.SaveChangesAsync();
+
+            return Ok("Prisijungimas buvo patvirtintas");
+        }
+        [HttpPut]
+        [Route("/UpdateLoginStatus")]
+        public async Task<IActionResult> UpdateLoginStatus(int id)
+        {
+            var user =  _context.RegisteredUsers.FirstOrDefault(u => u.Id == (ulong)id );
+
+            if(user == null)
+            {
+                return NotFound("Vartotojas nerastas");
+            }
+
+            user.isloggedin = 0;
+            await _context.SaveChangesAsync();
+            return Ok(user);
+        }
+
+        
+
        
         
         
