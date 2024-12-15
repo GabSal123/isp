@@ -36,7 +36,7 @@ function App() {
       <Route path="/Profilis" element={<Profilis/>}/>
       <Route path="/PirkiniuIstorija" element={<PirkiniuIstorija/>}/>
       <Route path="/Krepselis" element={<KrepselioLangas/>}/>
-      <Route path="/Preke" element={<PrekesLangas/>}/>
+      <Route path="/Preke/:id" element={<PrekesLangas/>}/>
       <Route path="/PrekiuSarasas" element={<PrekiuSarasas/>}/>
 
       </Routes>

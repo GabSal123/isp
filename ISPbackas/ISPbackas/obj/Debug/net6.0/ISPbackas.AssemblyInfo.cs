@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ISPbackas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+59803d918934ce831d4bd04f572c22b007c3c662")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90877728f19e198782f46ea9c8da224008e57895")]
 [assembly: System.Reflection.AssemblyProductAttribute("ISPbackas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ISPbackas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

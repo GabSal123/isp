@@ -1,30 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/PrekesLangas.css"; // Import the CSS file
 
-const Counter = () => {
-    // State for the counter value
-    const [count, setCount] = useState(1);
-  
-    // Event Handlers
-    const increment = () => setCount(count + 1);
-  
-    const decrement = () => {
-      if (count > 1) {
-        setCount(count - 1);
-      }
-    };
-  
-    return (
-      <div className="counter-container">
-        <button className="counter-btn" onClick={decrement}>
-          −
-        </button>
-        <span className="counter-value">{count}</span>
-        <button className="counter-btn" onClick={increment}>
-          +
-        </button>
-      </div>
-    );
+const Counter = ({ amountLeft}) => {
+    const [quantity, setQuantity] = useState(1); // Default quantity to 1
+  // Event Handlers for increment and decrement
+  const increment = () => {
+    if (quantity < amountLeft) {
+      setQuantity(quantity+1);
+    }
   };
-  
-  export default Counter;
+
+  const decrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1); // Safely update state
+    }
+  };
+
+  return (
+    <div className="counter-container">
+      <button 
+        className="counter-btn" 
+        onClick={decrement} 
+        disabled={quantity <= 1} // Disable if quantity is at minimum
+      >
+        −
+      </button>
+      <span className="counter-value">{quantity}</span>
+      <button 
+        className="counter-btn" 
+        onClick={increment} 
+        disabled={quantity >= amountLeft} // Disable if quantity reaches max
+      >
+        +
+      </button>
+    </div>
+  );
+};
+
+export default Counter;
