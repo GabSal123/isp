@@ -50,7 +50,7 @@ const DisplayUser = ({username, password, name, surname, email, profilepicture, 
                     <strong>Vartotojo tipas</strong>
                     <p className='profile-p'>{usertype} </p>
                     <strong>Taikoma nuolaida</strong>
-                    <p className='profile-p'>{loyaltycredit} </p>
+                    <p className='profile-p'>{loyaltycredit} % </p>
                 </div>
 
                 

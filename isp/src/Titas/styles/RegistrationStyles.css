@@ -77,7 +77,7 @@ input[type="radio"] {
 /* Button styling */
 .registration-btn {
     padding: 10px 20px;
-    background-color: #007bff;
+    background: linear-gradient(135deg, #4CAF50, #2F8AFC);
     color: white;
     border: none;
     border-radius: 5px;
@@ -88,7 +88,9 @@ input[type="radio"] {
 }
 
 .registration-btn:hover {
-    background-color: #ae4c4c;
+    background: linear-gradient(135deg, #2F8AFC, #4CAF50);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05); /* Slightly enlarges the button */
 }
 
 /* Success and Error messages container */

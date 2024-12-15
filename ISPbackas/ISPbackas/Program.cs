@@ -1,8 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using ISPbackas.Models;
+using ISPbackas.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.Configure<SmtpSettings>(builder.Configuration.GetSection("SmtpSettings"));
+builder.Services.AddSingleton<EmailService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("CORSPolicy", builder =>

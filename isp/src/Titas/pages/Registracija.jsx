@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios'
 import '../styles/RegistrationStyles.css';
 import defaultPicture from '../assets/defaultPP.png';
+import VerifyEmail from '../components/VerifyEmail';
 
 const Registracija = ()=> {
     const [userName, setUsername] = useState("");
@@ -16,7 +17,7 @@ const Registracija = ()=> {
     const [loyaltyCredit, setLoyaltyCredit] = useState(0);
     const [gender, setGender] = useState(3);
     const [level, setLevel] = useState(1);
-    const [userType, setUserType] = useState(2);
+    const [userType, setUserType] = useState(1);
 
     const [submitted, setSubmitted] = useState(false);
     const [userError, setUserError] = useState(false);
@@ -52,6 +53,7 @@ const Registracija = ()=> {
         setSubmitted(false);
 
     }
+
 
     //no profile picture upon registration?
 
@@ -101,33 +103,47 @@ const Registracija = ()=> {
    
     //Form submission
     const navigate = useNavigate();
-    const handleSubmit = (temp) => {
+    const handleSubmit = async (temp) => {
         temp.preventDefault();
         if (name === "" || email === "" || password === "" || userName === "" || surName === ""
             || age === "" || gender === "") {
             setEmptyFieldsError(true);
-            setSubmitted(false);            
+            setSubmitted(false);     
+            return;       
 
         }
         if(userName.length < 6 || password.length < 6){
             setUserError(true);
             setSubmitted(false); 
+            return;
         }
         if(!(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/.test(email))) {
             setGmailError(true);
             setSubmitted(false);
+            return;
         }
-        else {
-
-            axios.post("https://localhost:7241/AddUser", payload);
-            console.log(payload);
-                               
+        try {
+            
+            await axios.post("https://localhost:7241/AddUser", payload);
+    
+            
+            await axios.post("https://localhost:7241/SendVerificationEmail", email, {
+                headers: { 'Content-Type': 'application/json' }
+            });
+    
+            
             setSubmitted(true);
             setEmptyFieldsError(false);
             setUserError(false);
             setGmailError(false);
-            
+    
+            alert("Patvirtinkite savo paštą, paspaudę nuorodą, kurią gavote į savo paštą.");
             navigate(`/prisijungimas`);
+    
+        } catch (error) {
+            
+            console.error(error);
+            setSubmitted(false);
         }
     };
 
