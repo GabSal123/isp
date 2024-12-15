@@ -137,7 +137,7 @@ const Registracija = ()=> {
             setUserError(false);
             setGmailError(false);
     
-            
+            alert("Patvirtinkite savo paštą, paspaudę nuorodą, kurią gavote į savo paštą.");
             navigate(`/prisijungimas`);
     
         } catch (error) {

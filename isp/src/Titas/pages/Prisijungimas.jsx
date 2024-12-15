@@ -45,7 +45,6 @@ const  Prisijungimas = () => {
                 setSubmitted(true);
                 setError(false);
                 localStorage.setItem("id", id);
-                alert("Patvirtinkite savo paštą, paspaudę nuorodą, kurią gavote į savo paštą.");
                 navigate(`/Profilis`);
                 
                 
