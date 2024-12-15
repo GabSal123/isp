@@ -5,6 +5,7 @@ import "../styles/resstyles.css"
 import DisplayReservation from '../components/DisplayReservation';
 import '../styles/ReservationStyles.css';
 import axios from 'axios';
+import Cart from "../../Justina/assets/Cart.png";
 
 const RezervacijuLangas = ()=> {
   const user_id = localStorage.getItem("id");
@@ -31,13 +32,17 @@ const RezervacijuLangas = ()=> {
         console.error('Error deleting reservation:', err);
       });
     };
-    
+    const handleCartClick = () => {
+      navigate("/krepselis");
+    };
     const handleEditClick = (id) => {
       navigate(`/seansas/${id}/edit`);
     };
     return (
       <div className="reservations-container">
         <h1>Mano Rezervacijos</h1>
+        <img src={Cart} alt="Cart" className="back-button" onClick={handleCartClick} />
+        <button onClick={()=>navigate("/")}>Pagrindinis</button>
         <div className="reservations-grid">
           {reservations.map((res, index) => (
             <DisplayReservation

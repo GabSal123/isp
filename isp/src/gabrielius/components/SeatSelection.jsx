@@ -176,7 +176,7 @@ const SeatSelection = ({ session_id, edit }) => {
         setCount(0);
         setSelectedSeats([]);  
         setCombinedPrice(0);
-        navigate(`/revervacija`);
+        navigate(`/PrekiuSarasas`);
       })
       .catch((err) => {
         console.error('Error with reservation requests:', err);

@@ -62,14 +62,14 @@ const SeansuLangas = ()=> {
         </div>
         <div className="right-section">
           <div className="dropdown-container">
-            <label htmlFor="date-select">Select a date:</label>
+            <label htmlFor="date-select">Pasirinkti diena:</label>
             <select
               id="date-select"
               value={selectedDate}
               onChange={handleDateChange}
               className="styled-select"
             >
-              <option value="">-- Choose a date --</option>
+              <option value="">-- Pasirinkti laika --</option>
               {dates.map((date, index) => (
                 <option key={index} value={date.day}>
                   {new Date(date.day).toLocaleDateString("en-UK", {

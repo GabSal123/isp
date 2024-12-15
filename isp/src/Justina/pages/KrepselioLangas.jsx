@@ -14,7 +14,9 @@ const KrepselioLangas = () => {
     const [cartItems, setCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [itemToRemove, setItemToRemove] = useState(null); // New state to track item removal
+    const [itemToRemove, setItemToRemove] = useState(null);
+    const [tickets, setTickets] = useState([])
+    const [totalPrice, setTotalPrice] = useState(0)
     const cartId = localStorage.getItem("cartId");
     const navigate = useNavigate();
 
@@ -58,8 +60,11 @@ const KrepselioLangas = () => {
     useEffect(() => {
       const fetchCartItems = async () => {
           try {
-            const response = await axios.get(`https://localhost:7241/GetCartItems/${cartId}`); // API call to get product
-            setCartItems(response.data); // Set product data
+            const response = await axios.get(`https://localhost:7241/GetCartItems/${cartId}`);
+            console.log("naujas responsas",response)
+            setCartItems(response.data.cartItems); // Set product data
+            setTickets(response.data.tickets)
+            setTotalPrice(response.data.totalPrice)
           } catch (err) {
               console.error("Error fetching cart items:", err);
               setError(err.response ? err.response.data : "Error fetching cart items.");
@@ -73,10 +78,11 @@ const KrepselioLangas = () => {
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>{error}</p>;
-
+  console.log(tickets)
     return (
         <div className="pirkiniu-body">
             <h1><center>Krepšelis</center></h1>
+            <h2>Bendra kaina: {totalPrice}</h2>
             {cartItems.map((item) => (
                 <div className="flex-container" key={item.id}>
                     {Array.from({ length: item.quantity }).map((_, index) => (
@@ -95,8 +101,31 @@ const KrepselioLangas = () => {
                             />
                         </div>
                     ))}
+                    
                 </div>
             ))}
+
+            {tickets.map((item) => (
+                <div className="flex-container" key={item.id}>
+                    {Array.from({ length: item.quantity }).map((_, index) => (
+                        <div className="ticket-row" key={`${20+item.id}-${index}`}>
+                            <Bilietas
+                                icon={ticketIcon}
+                                movieName={`${item.movieTitle} Eile: ${item.row} Vieta: ${item.seat}`}
+                                seatIcon={seatIcon}
+                                price={item.price}
+                            />
+                            <img 
+                                src={Remove}
+                                alt="Remove" 
+                                className="remove-button"
+                            />
+                        </div>
+                    ))}
+                    
+                </div>
+            ))}
+
 
             <div className="flex-container1">
                 <img 

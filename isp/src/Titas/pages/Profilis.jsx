@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-import { ReactSession } from 'react-client-session';
 import axios from 'axios';
 import '../styles/ProfileStyles.css';
 import defaultPicture from '../assets/defaultPP.png'; 
@@ -116,7 +115,7 @@ const Profilis = () => {
     };
 
     const handleNavigateReservation = () => {
-        navigate(`/`);  
+        navigate(`/revervacija`);  
     };
     const handleNavigateProfileUpdate = () => {
         navigate('/Profilioredagavimas');

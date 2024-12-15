@@ -30,24 +30,26 @@ const  Prisijungimas = () => {
         const response = await axios.get("https://localhost:7241/GetUser", {
             params: { id: id },
         });
-        console.log("Verified status: ", response.data.verified);
         if (response.data.verified === 1) {
+            console.log("viduje")
             try{
+                console.log("pries await")
                 await axios.post("https://localhost:7241/SendLoginEmail", response.data.email, {
                     headers: { 'Content-Type': 'application/json' }
                 });
+                console.log("awaitina")
                 const responseLogin = await axios.get("https://localhost:7241/GetUser", {
                     params: { id: id },
                 });
-                
+                console.log("navigacija")
                 
                 setSubmitted(true);
                 setError(false);
                 localStorage.setItem("id", id);
-                const response = await axios.get(`https://localhost:7241/CheckShoppingCart?userId=${id}`).then((res)=>res.data)
-            console.log("responas: ",response)
-            if(response >= 0){
-                localStorage.setItem("cartId",response)
+                const responseee = await axios.get(`https://localhost:7241/CheckShoppingCart?userId=${id}`).then((res)=>res.data)
+            console.log("responas: ",responseee)
+            if(responseee >= 0){
+                localStorage.setItem("cartId",responseee)
             }else{
                 const today = new Date();
                 const creationDate = today.toISOString().split('T')[0];
@@ -58,16 +60,19 @@ const  Prisijungimas = () => {
                 state: 1,
                 fkRegisteredUser: id,
                 };
-                cart_id = await axios.post("https://localhost:7241/CreateShoppingCart",cart).then((res)=>res.data)
+                const cart_id = await axios.post("https://localhost:7241/CreateShoppingCart",cart).then((res)=>res.data)
                 localStorage.setItem("cartId",cart_id)
             }
+
                 navigate(`/Profilis`);
                 
                 
             }
             catch (error){
-                console.error(error);
+                console.log("navigacijaaa")
+                console.log("eroras",error);
                 setSubmitted(false);
+                //navigate(`/Profilis`);
             }
             
 

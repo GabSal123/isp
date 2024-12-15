@@ -46,6 +46,7 @@ const Reservations = ()=> {
   return (
 
     <div>
+        <button onClick={()=>navigate("/profilis")}>Profilis</button>
         <ul className='displayList'>
         {reservations.map(e=>{
             return <DisplayMovie key={e.id} name={e.title} onClickShow={()=>handleResClick(e.id)}/>
