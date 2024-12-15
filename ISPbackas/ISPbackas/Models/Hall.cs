@@ -11,5 +11,12 @@ public partial class Hall
 
     public int AvailableSeatCount { get; set; }
 
+    public int number_of_rows { get; set; }
+
+    public int number_of_columns { get; set; }
+
     public int Functionality { get; set; }
+
+
+
 }
