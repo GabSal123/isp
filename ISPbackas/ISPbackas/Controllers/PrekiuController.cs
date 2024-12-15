@@ -46,6 +46,28 @@ namespace ISPbackas.Controllers
 
             return Ok(product);
         }
+             [HttpGet]
+        [Route("/GetProductsByCategory")]
+        public async Task<IActionResult> GetProductsByCategory(string category)
+        {
+            // Validate the input
+            if (string.IsNullOrWhiteSpace(category))
+            {
+                return BadRequest("Category must be provided.");
+            }
+
+            // Retrieve products by category
+            var products = await _context.Products
+                .Where(p => p.Description == category) // Assuming your Product model has a Category property
+                .ToListAsync();
+
+            if (products == null || !products.Any())
+            {
+                return NotFound("No products found in this category.");
+            }
+
+            return Ok(products);
+        }
         [HttpPost]
         [Route("/AddIncludedProduct")]
 public async Task<IActionResult> AddIncludedProduct([FromBody] ISPbackas.Models.IncludedProduct includedProduct)
@@ -77,4 +99,6 @@ public async Task<IActionResult> AddIncludedProduct([FromBody] ISPbackas.Models.
         Console.WriteLine($"Error: {ex.Message}");
         return StatusCode(500, "Internal server error: " + ex.Message);
     }
+
+
 }}}
