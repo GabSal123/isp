@@ -24,6 +24,9 @@ const KrepselioLangas = () => {
     const handleHistoryClick = () => {
         navigate("/pirkiniuistorija");
     };
+    const handlePaymentClick = () => {
+        navigate("/mokejimas");
+    };
 
 
     // useEffect to call the API when itemToRemove changes
@@ -106,6 +109,7 @@ const KrepselioLangas = () => {
                     src={Payment}
                     alt="payment" 
                     className="back-button" 
+                    onClick={handlePaymentClick} 
                 />
                 <img 
                     src={History}

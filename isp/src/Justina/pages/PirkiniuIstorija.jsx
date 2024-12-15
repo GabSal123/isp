@@ -51,9 +51,9 @@ const PirkiniuIstorija = () => {
       <Bilietas
         key={index}
         icon={ticketIcon}
-        movieName={cartItem.name}  // Make sure this matches the returned field
+        movieName={cartItem.productName}  // Make sure this matches the returned field
         seatIcon={seatIcon}
-        price={cartItem.price}  // Same here, make sure this is correct
+        price={cartItem.productPrice}  // Same here, make sure this is correct
       />
     );
   })
