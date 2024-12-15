@@ -35,10 +35,10 @@ const PrekesLangas = () => {
   // Handle adding the product to the cart
   const handleAddClick = async () => {
     try {
-      const Amount = 1;
-      const FkShoppingCart =  parseInt(1); // Get the current cart ID (you might need to get it dynamically)
+      const Amount = quantity;
+      const FkShoppingCart = localStorage.getItem("cartId"); // Get the current cart ID (you might need to get it dynamically)
       const FkProduct = parseInt(product.id, 10);  // Use the product ID
-      if(quantity!=1) {Amount =  quantity+1; }// Use the quantity from the counter
+      console.log(quantity);
   
       const response = await axios.post("https://localhost:7241/AddIncludedProduct", {
         FkProduct,
@@ -52,7 +52,6 @@ const PrekesLangas = () => {
     }
     navigate(-1)
   };
-  
 
   // If there is an error, display it
   if (error) {
@@ -73,7 +72,7 @@ const PrekesLangas = () => {
       />
       <h2>{product.name}</h2> {/* Display product name */}
 
-      <div className="flex-container">
+      <div className="flex-container1">
         <img 
           src={Back} 
           alt="Back" 
@@ -86,7 +85,7 @@ const PrekesLangas = () => {
           <Counter 
             amountLeft={product.availableQuantity} 
             quantity={quantity} 
-            setQuantity={setQuantity} 
+            setQuantity={setQuantity} // Pass the setter to Counter
           />
         </div>
 

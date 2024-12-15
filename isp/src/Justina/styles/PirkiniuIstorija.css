@@ -149,5 +149,23 @@
 
 .flex-container {
     display: flex;
+    flex-direction: column; /* Stack rows vertically */
+    gap: 50px; /* Uniform spacing between rows */
+}
+
+.ticket-row {
+    display: flex;
+    flex-direction: row; /* Align ticket and image in a row */
+    align-items: center; /* Vertically center ticket and image */
+    gap: 10px; /* Uniform spacing between ticket and image */
+}
+
+.ticket-row > * {
+    margin: 0; /* Reset margins for all children */
+    padding: 0; /* Reset padding for all children */
+}
+.flex-container1 {
     justify-content: space-between;
+    display: flex;
+    gap: 15px; /* Uniform spacing between rows */
 }

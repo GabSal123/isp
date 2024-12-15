@@ -36,16 +36,16 @@ const PrekiuSarasas = () => {
   };
 
   const handleCartClick = () => {
-    navigate("/Krepselis"); // Programmatically navigate to the cart page
+    navigate("/krepselis"); // Programmatically navigate to the cart page
   };
 
   return (
     <div>
-      <div className="flex-container">
+      <div className="flex-container1">
         <Dropdown setFilteredProducts={setFilteredProducts} products={products} /> {/* Pass function to Dropdown */}
         <img src={Cart} alt="Cart" className="back-button" onClick={handleCartClick}/>
       </div>
-      <div className="flex-container">
+      <div className="flex-container1">
         {error && <p style={{ color: "red" }}>{error}</p>} {/* Display error message if any */}
         {filteredProducts.length === 0 ? (
           <p>Nėra prekių kategorijoje</p> // Show message if no products found

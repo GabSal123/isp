@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "../styles/PrekesLangas.css"; // Import the CSS file
 
-const Counter = ({ amountLeft}) => {
-    const [quantity, setQuantity] = useState(1); // Default quantity to 1
+const Counter = ({ amountLeft, quantity, setQuantity }) => {
   // Event Handlers for increment and decrement
   const increment = () => {
     if (quantity < amountLeft) {
-      setQuantity(quantity+1);
+      setQuantity(quantity + 1); // Update quantity in parent component
     }
   };
 
   const decrement = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1); // Safely update state
+      setQuantity(quantity - 1); // Safely update quantity in parent component
     }
   };
 
