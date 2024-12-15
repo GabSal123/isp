@@ -1,7 +1,6 @@
-import { useState } from 'react'
-import DisplayReservation from '../components/DisplayReservation'
+import { useState, useEffect } from 'react'
+import DisplayMovie from '../components/DisplayMovie'
 import { useNavigate } from 'react-router-dom';
-import { ReactSession } from 'react-client-session';
 import "../styles/resstyles.css"
 import axios from 'axios';
 
@@ -9,7 +8,14 @@ import axios from 'axios';
 const Reservations = ()=> {
   const user_id = localStorage.getItem("id");
     console.log(user_id);
-    const reservations = [
+    const [reservations, setReservations] = useState([])
+
+    useEffect(()=>{
+        axios.get(`https://localhost:7241/GetAllMovies`)
+        .then((res)=>{setReservations(res.data)})
+
+    },[])
+    const reservationsss = [
         {id: 0,
         movie: "Titanikas",
         cost: 12
@@ -42,7 +48,7 @@ const Reservations = ()=> {
     <div>
         <ul className='displayList'>
         {reservations.map(e=>{
-            return <DisplayReservation key={e.id} name={e.movie} cost ={e.cost} onClickShow={()=>handleResClick(e.id)}/>
+            return <DisplayMovie key={e.id} name={e.title} onClickShow={()=>handleResClick(e.id)}/>
 
         })}
         </ul>

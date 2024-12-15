@@ -37,53 +37,82 @@
 }
 
 .container-reservation-1 {
-  display: flex; 
-  justify-content: space-between; 
-  align-items: flex-start; 
-  width: 100%; 
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .left-section {
-  flex: 1; 
-  max-width: 40%; 
-  display: flex;
-  flex-direction: column; 
-  justify-content: center;
-  align-items: center; 
-  text-align: center; 
-  height: 100%; 
-  padding-top: 3%;
+  flex: 1;
+  text-align: center;
+}
+
+.imagediv img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 2px solid #ddd;
 }
 
 .right-section {
-  flex: 1;
-  max-width: 60%;
+  flex: 2;
+}
+
+.dropdown-container {
+  margin-bottom: 20px;
+}
+
+.dropdown-container label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.styled-select {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.styled-select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.times-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
   display: flex;
-  flex-direction: column; 
-  justify-content: center;
-  align-items: center; 
-  text-align: center; 
-  height: 100%; 
-  padding-top: 8%;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-.imagediv {
-  width: 300px; 
-  height: 500px; 
-  background-color: rgb(16, 15, 15); 
+.times-list li {
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-select {
-  margin-bottom: 20px; 
+.times-list li:hover {
+  background-color: #0056b3;
 }
 
-ul {
-  list-style-type: none; 
-  padding: 0; 
-}
-
-ul li {
-  margin-bottom: 10px; 
+.times-list li:active {
+  background-color: #004494;
 }
 
 .FilmPageContainer {
@@ -96,9 +125,20 @@ ul li {
   text-align: center; /* Centers text inside child elements */
 }
 .FilmPageContainer2{
-  background-color: black;
-  width: 40%;
-  height: 50%;
+  width: 300px; /* Set a fixed width */
+  height: 300px; /* Set a fixed height */
+  display: flex;
+  justify-content: center; /* Center the image horizontally */
+  align-items: center; /* Center the image vertically */
+  overflow: hidden; /* Ensure images don’t overflow the container */
+  background-color: #f0f0f0; /* Optional: Set a background color for empty spaces */
+  border: 1px solid #ccc; /* Optional: Add a border for visual consistency */
+  border-radius: 8px; /* Optional: Add rounded corners */
+}
+.FilmPageContainer2 img {
+  max-width: 100%; /* Prevents the image from exceeding its container */
+  height: 100%;    /* Maintains aspect ratio */
+  object-fit: cover; /* Ensures the image fills its container neatly */
 }
 
 .FilmPageContainer2 img {

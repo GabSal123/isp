@@ -1,36 +1,47 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import DisplayTicket from '../components/DisplayTicket';
 import '../styles//RezervacijosInformacinisLangas.css';
+import axios from 'axios';
 
 const RezervacijosInformacinisLangas = ()=> {
     const { id } = useParams();
-    const reservation = {
-        movie: "Titanikas",
-        cost: 12
+    const cart_id = localStorage.getItem("cartId");
+    const [tickets, setTickets] = useState([])
+    const [movie, setMovie] = useState({title:""})
+    useEffect(()=>{
+      const request = axios.get(`https://localhost:7241/GetMovieFromSession?sessionId=${id}`).then((res) => res.data)
+    .then((data) => {
+      setMovie(data)
+    })
+    .catch((e) => {
+      console.log(e)
+    });
+   },[])
 
-    }
+    useEffect(()=>{
 
-    const tickets = [{id:0,cinema:"12",row:"A15",column:16},
-        {id:1,cinema:"12",row:"A15",column:17},
-        {id:2,cinema:"12",row:"A15",column:18},
-    ]
+      axios.get(`https://localhost:7241/GetReservationInfo?cartId=${cart_id}&sessionId=${id}`)
+      .then((res)=>{
+        setTickets(res.data)
+      })
+
+    },[])
 
 
     return (
         <div className="reservation-info-container">
           <h1 className="reservation-title">Rezervacijos Informacija</h1>
           <div className="reservation-details">
-            <p>Filmas: <strong>{reservation.movie}</strong></p>
-            <p>Kaina: <strong>{reservation.cost}€</strong></p>
+            <p>Filmas: <strong>{movie.title}</strong></p>
           </div>
           <ul className="ticket-list">
             {tickets.map((ticket, index) => (
               <DisplayTicket
                 key={index}
-                cinema={ticket.cinema}
                 row={ticket.row}
-                column={ticket.column}
+                column={ticket.seat}
+                price={ticket.price}
               />
             ))}
           </ul>

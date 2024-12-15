@@ -13,6 +13,7 @@ const SeatSelection = ({ session_id, edit }) => {
   const [takenSeats, setTakenSeats] = useState([]);
   const [count, setCount] = useState(0);
   const [selectedSeats, setSelectedSeats] = useState([]);
+  const cart_id = localStorage.getItem("cartId");
 
   useEffect(() => {
     axios
@@ -34,12 +35,23 @@ const SeatSelection = ({ session_id, edit }) => {
           const isReserved = takenSeats.some((seat) => {
             return seat.row === rowIndex && seat.seat === colIndex;
           });
+          const reservedSeat = takenSeats.find(
+            (seat) => seat.row === rowIndex && seat.seat === colIndex
+          );
 
+          
+          const status = reservedSeat
+          ? reservedSeat.fkShoppingCart == cart_id
+            ? edit === 'edit'
+              ? 'selected'
+              : 'reserved'
+            : 'reserved'
+          : 'available';
           return {
             id: `${rowIndex}-${colIndex}`,
             row: `${rowIndex}`,
             col: `${colIndex}`,
-            status: isReserved ? (edit === 'edit' ? 'selected' : 'reserved') : 'available',
+            status: status,
           };
         })
       );
@@ -65,7 +77,6 @@ const SeatSelection = ({ session_id, edit }) => {
             if (seat.status !== 'reserved') {
               const newStatus =
                 seat.status === 'available' ? 'selected' : 'available';
-  
 
               if (newStatus === 'selected') {
                 setSelectedSeats((prev) => [
@@ -121,7 +132,7 @@ const SeatSelection = ({ session_id, edit }) => {
           axios
             .post('https://localhost:7241/AddReservation', obj)
             .then((res) => {
-              console.log('Seats reserved successfully:', res.data);
+              
             })
             .catch((err) => {
               console.error('Error reserving seats:', err);
@@ -131,25 +142,28 @@ const SeatSelection = ({ session_id, edit }) => {
     } else {
       seats.forEach((seatRow) => {
         seatRow.forEach((seat)=>{
-          const obj = {
-            Price: ticketPrice,
-            Row: seat.row,
-            Seat: seat.col,
-            FkMovieSession: session_id,
-            FkShoppingCart: cart_id,
-          };
-          const selected = seat.status === "selected";
 
-          promises.push(
-            axios
-              .post(`https://localhost:7241/ChangeReservation?selected=${selected}`, obj)
-              .then((res) => {
-                console.log('Seats reserved for edit successfully:', res.data);
-              })
-              .catch((err) => {
-                console.error('Error reserving seats:', err);
-              })
-          );
+          if(seat.status != "reserved"){
+            const obj = {
+              Price: ticketPrice,
+              Row: seat.row,
+              Seat: seat.col,
+              FkMovieSession: session_id,
+              FkShoppingCart: cart_id,
+            };
+            const selected = seat.status === "selected";
+  
+            promises.push(
+              axios
+                .post(`https://localhost:7241/ChangeReservation?selected=${selected}`, obj)
+                .then((res) => {
+
+                })
+                .catch((err) => {
+                  console.error('Error reserving seats:', err);
+                })
+            );
+          }
 
         })
         

@@ -35,10 +35,10 @@ const PrekesLangas = () => {
   // Handle adding the product to the cart
   const handleAddClick = async () => {
     try {
-      const Amount = 1;
+      //const Amount = 1;
       const FkShoppingCart =  parseInt(1); // Get the current cart ID (you might need to get it dynamically)
       const FkProduct = parseInt(product.id, 10);  // Use the product ID
-      if(quantity!=1) {Amount =  quantity+1; }// Use the quantity from the counter
+      //if(quantity!=1) {Amount =  quantity+1; }// Use the quantity from the counter
   
       const response = await axios.post("https://localhost:7241/AddIncludedProduct", {
         FkProduct,
