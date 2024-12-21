@@ -54,7 +54,7 @@ function App() {
 
       
       <Route path="/" element={<PagrindinisFilmuLangas/>}/>
-      <Route path="/FilmoVertinimoFormosLangas" element={<FilmoVertinimoFormosLangas/>}/>
+      <Route path="/FilmoVertinimoFormosLangas/:id" element={<FilmoVertinimoFormosLangas/>}/>
       <Route path="/FilmoRedagavimoFormosLangas/:id" element={<FilmoRedagavimoFormosLangas/>}/>
       <Route path="/FilmoLangas/:id" element={<FilmoLangas/>}/>
       <Route path="/FilmoFormosLangas" element={<FilmoFormosLangas/>}/>

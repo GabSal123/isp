@@ -41,7 +41,7 @@ function displaySelectedMovie(movie, navigate) {
                     maxHeight: '1200px'
                 }}
             >
-                <button>Įvertinti</button>
+                <button onClick={() => navigate(`/FilmoVertinimoFormosLangas/${movie.id}`)}>Įvertinti</button>
                 <h1>{movie.title}</h1>
                 <img 
                     src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}
