@@ -6,16 +6,41 @@ import axios from 'axios';
 function displaySelectedMovie(movie) {
     return (
         <div>
-            <h1>{movie.title}</h1>
-            <br></br>
-            <p>{movie.description}</p>
-            <button>Įvertinti</button>
-            <br></br><br></br>
-            <button>Užsisakyti</button>
-            <br></br><br></br>
-            <button>Redaguoti</button>
-            <br></br><br></br>
-            <button>Ištrinti</button>
+            <div
+            key={movie.id}
+                style={{
+                    backgroundColor: '#f0f0f0', 
+                    borderRadius: '10px', 
+                    padding: '20px', 
+                    margin: '10px', 
+                    cursor: 'pointer',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    maxWidth: '600px',
+                    maxHeight: '1200px'
+                }}
+            >
+                <button>Įvertinti</button>
+                <h1>{movie.title}</h1>
+                <img 
+                    src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}
+                    style={{ maxWidth: '300px', maxHeight: '450px' }}
+                />
+                <p style={{alignContent: 'center'}}>{movie.description}</p>
+                <p>Kalba: {movie.language}</p>
+                <p>Amžiaus cenzas: {movie.ageCensorship}</p>
+                <p>Studija: {movie.studio}</p>
+                <p>Rodomas: nuo {movie.startingFrom} iki {movie.showingUntil}</p>
+                <p>Subtitrų kalba: {movie.language}</p>
+                <p><a href={movie.trailerLink} target="_blank">Oficialus anonsas</a></p>
+                <button>Bilietai</button>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <button style={{ marginRight: '20px' }}>Ištrinti</button>
+                <button>Redaguoti</button>
+             </div>
         </div>
     )
 }
@@ -33,7 +58,7 @@ function FilmoLangas() {
     },[id]);
 
     return (
-        <div>
+        <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh',}}>
             {displaySelectedMovie(movie)}
         </div>
     );

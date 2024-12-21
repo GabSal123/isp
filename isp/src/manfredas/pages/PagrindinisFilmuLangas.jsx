@@ -31,7 +31,6 @@ function displayMovie(movie, navigate) {
                 style={{ maxWidth: '200px', maxHeight: '300px' }}
                 onClick={navigateToFilmoLangas}
             />
-            <p>{movie.description}</p>
         </div>
     );
 }
