@@ -6,9 +6,27 @@ import axios from 'axios';
 
 function displayMovie(movie) {
     return (
-        <div key={movie.id}>
+        <div 
+            key={movie.id}
+            style={{
+                backgroundColor: '#f0f0f0', 
+                borderRadius: '10px', 
+                padding: '20px', 
+                margin: '10px', 
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'column',
+                maxWidth: '300px',
+                maxHeight: '600px'
+            }}
+        >
             <h2>{movie.title}</h2>
-            <img src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}/>
+            <img 
+                src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}
+                style={{ maxWidth: '200px', maxHeight: '300px' }}
+            />
             <p>{movie.description}</p>
         </div>
     );
