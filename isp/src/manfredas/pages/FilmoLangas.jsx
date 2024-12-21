@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-function displaySelectedMovie(movie) {
+function displaySelectedMovie(movie, navigate) {
     const [ageCensorship, setAgeCensorship] = useState("")
     const [language, setLanguage] = useState("")
 
@@ -58,10 +58,10 @@ function displaySelectedMovie(movie) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <button style={{ marginRight: '20px' }}>Ištrinti</button>
-                <button>Redaguoti</button>
+                <button onClick={() => {navigate(`/FilmoRedagavimoFormosLangas/${movie.id}`);}}>Redaguoti</button>
              </div>
         </div>
-    )
+    );
 }
 
 function FilmoLangas() {
@@ -74,11 +74,13 @@ function FilmoLangas() {
                 console.log(result)
                 setMovie(result.data);
             })
-    },[id]);
+    },[]);
+
+    const navigate = useNavigate();
 
     return (
         <div  style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh',}}>
-            {displaySelectedMovie(movie)}
+            {displaySelectedMovie(movie, navigate)}
         </div>
     );
 }
