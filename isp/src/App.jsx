@@ -21,6 +21,8 @@ import VerifyEmail from './Titas/components/VerifyEmail';
 import VerifyLogin from './Titas/components/VerifyLogin';
 import PrekesLangas from './Justina/pages/PrekesLangas';
 import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
+import FilmuLangas from './manfredas/FilmuLangas'
+import FilmoForma from './manfredas/FilmoForma';
 
 
 
@@ -31,7 +33,8 @@ function App() {
 
       <Routes>
 
-      <Route path="/" element={<Reservations/>}/>
+      <Route path="/FilmoLangas" element={<Reservations/>}/>
+
       <Route path="/filmas/:id" element={<FilmoLangas/>}/>
       <Route path="/seansai/:id" element={<SeansuLangas/>}/>
       <Route path="/revervacija" element={<RezervacijuLangas/>}/>
@@ -43,6 +46,10 @@ function App() {
       <Route path="/Profilis" element={<Profilis/>}/>
       <Route path="/PirkiniuIstorija" element={<PirkiniuIstorija/>}/>
       <Route path="/Krepselis" element={<KrepselioLangas/>}/>
+
+      <Route path="/" element={<FilmuLangas/>}/>
+      <Route path="/FilmoForma" element={<FilmoForma/>}/>
+
 
       <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>
       <Route path="/ProfilioRedagavimas" element={<ProfilioRedagavimas/>}/>

@@ -15,26 +15,6 @@ const Reservations = ()=> {
         .then((res)=>{setReservations(res.data)})
 
     },[])
-    const reservationsss = [
-        {id: 0,
-        movie: "Titanikas",
-        cost: 12
-        },
-        {id: 1,
-            movie: "Karibu piratai",
-            cost: 12
-        },
-        {id: 2,
-            movie: "Avataras",
-            cost: 12
-        },
-        {id: 3,
-            movie: "Haris Poteris",
-            cost: 12
-        },
-
-    ]
-
 
     const navigate = useNavigate();
 
