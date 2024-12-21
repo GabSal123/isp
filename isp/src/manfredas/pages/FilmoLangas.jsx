@@ -3,6 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
+function displaySelectedMovie(movie) {
+    return (
+        <div>
+            <h1>{movie.title}</h1>
+            <br></br>
+            <p>{movie.description}</p>
+        </div>
+    )
+}
+
 function FilmoLangas() {
     const { id } = useParams();
     const [movie, setMovie] = useState("")
@@ -14,11 +24,12 @@ function FilmoLangas() {
                 setMovie(result.data);
             })
     },[id]);
+
     return (
         <div>
-            {movie.title} filmo langas.
+            {displaySelectedMovie(movie)}
         </div>
-    )
+    );
 }
 
 export default FilmoLangas
