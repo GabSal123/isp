@@ -9,6 +9,13 @@ function displaySelectedMovie(movie) {
             <h1>{movie.title}</h1>
             <br></br>
             <p>{movie.description}</p>
+            <button>Įvertinti</button>
+            <br></br><br></br>
+            <button>Užsisakyti</button>
+            <br></br><br></br>
+            <button>Redaguoti</button>
+            <br></br><br></br>
+            <button>Ištrinti</button>
         </div>
     )
 }
