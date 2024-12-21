@@ -51,17 +51,12 @@ function PagrindinisFilmuLangas() {
     };
 
     return (
-        <div>
-            <h1>
-                Pagrindinis filmų langas
-            </h1>
-            <div>
-               {movieList.map((movie) => displayMovie(movie))}
-            </div>
-            <br></br>
-            <button onClick={navigateToFilmoLangas}>I filmo langa</button>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh',}}>
+          <div style={{ margin: '10% auto', display: 'flex', flexWrap: 'wrap' }}>
+            {movieList.map((movie) => displayMovie(movie))}
+          </div>
         </div>
-    )
+    );
 }
 
 export default PagrindinisFilmuLangas
