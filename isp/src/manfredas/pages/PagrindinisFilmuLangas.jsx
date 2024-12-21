@@ -4,7 +4,10 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 
-function displayMovie(movie) {
+function displayMovie(movie, navigate) {
+    const navigateToFilmoLangas = () => {
+        navigate(`/FilmoLangas/${movie.id}`);
+    };
     return (
         <div 
             key={movie.id}
@@ -26,6 +29,7 @@ function displayMovie(movie) {
             <img 
                 src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}
                 style={{ maxWidth: '200px', maxHeight: '300px' }}
+                onClick={navigateToFilmoLangas}
             />
             <p>{movie.description}</p>
         </div>
@@ -35,6 +39,7 @@ function displayMovie(movie) {
 
 function PagrindinisFilmuLangas() {
     const [movieList, setMovieList] = useState([])
+    const navigate = useNavigate();
 
     useEffect(()=>{
         axios.get(`https://localhost:7241/GetAllMovies`)
@@ -44,16 +49,10 @@ function PagrindinisFilmuLangas() {
             })
     }, [])
 
-    
-    const navigate = useNavigate();
-    const navigateToFilmoLangas = () => {
-        navigate(`/FilmoLangas`);
-    };
-
     return (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh',}}>
           <div style={{ margin: '10% auto', display: 'flex', flexWrap: 'wrap' }}>
-            {movieList.map((movie) => displayMovie(movie))}
+            {movieList.map((movie) => displayMovie(movie, navigate))}
           </div>
         </div>
     );
