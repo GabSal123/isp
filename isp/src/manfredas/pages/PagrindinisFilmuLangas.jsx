@@ -1,8 +1,6 @@
-// Allways needed
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-// For API calls
 import axios from 'axios';
 import FilmoVertinimoFormosLangas from './FilmoVertinimoFormosLangas';
 
@@ -15,15 +13,15 @@ function PagrindinisFilmuLangas() {
     }, [])
 
     const navigate = useNavigate();
-    const navigateToFilmoForma = () => {
-        navigate(`/FilmoForma`);
+    const navigateToFilmoLangas = () => {
+        navigate(`/FilmoLangas`);
     };
 
     return (
         <div>
             Pagrindinis filmų langas
             <br></br>
-            <button onClick={navigateToFilmoForma}>I filmo forma</button>
+            <button onClick={navigateToFilmoLangas}>I filmo langa</button>
         </div>
     )
 }
