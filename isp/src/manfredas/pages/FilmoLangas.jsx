@@ -4,6 +4,24 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 function displaySelectedMovie(movie) {
+    const [ageCensorship, setAgeCensorship] = useState("")
+    const [language, setLanguage] = useState("")
+
+    const getAgeCensorship = async () => {
+        const response = await axios.get(`https://localhost:7241/GetMovieAgeCencorship?id=${movie.ageCensorship}`);
+        console.log(response);
+        setAgeCensorship(response.data);
+    };
+
+    const getLanguage = async () => {
+        const response = await axios.get(`https://localhost:7241/GetMovieLanguage?id=${movie.language}`);
+        setLanguage(response.data);
+    };
+
+    useEffect(() => {
+        getAgeCensorship();
+        getLanguage();
+    },[]);
     return (
         <div>
             <div
@@ -29,11 +47,11 @@ function displaySelectedMovie(movie) {
                     style={{ maxWidth: '300px', maxHeight: '450px' }}
                 />
                 <p style={{alignContent: 'center'}}>{movie.description}</p>
-                <p>Kalba: {movie.language}</p>
-                <p>Amžiaus cenzas: {movie.ageCensorship}</p>
+                <p>Kalba: {language}</p>
+                <p>Amžiaus cenzas: {ageCensorship}</p>
                 <p>Studija: {movie.studio}</p>
                 <p>Rodomas: nuo {movie.startingFrom} iki {movie.showingUntil}</p>
-                <p>Subtitrų kalba: {movie.language}</p>
+                <p>Subtitrai: {movie.subtitles === 0 ? "yra" : "nėra"}</p> 
                 <p><a href={movie.trailerLink} target="_blank">Oficialus anonsas</a></p>
                 <button>Bilietai</button>
             </div>
