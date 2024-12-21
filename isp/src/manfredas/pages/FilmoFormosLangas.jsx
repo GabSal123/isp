@@ -6,7 +6,7 @@ import axios from 'axios';
 function FilmoFormosLangas() {
     return (
         <div>
-            Filmo forma.
+            Naujo filmo forma
         </div>
     )
 }
