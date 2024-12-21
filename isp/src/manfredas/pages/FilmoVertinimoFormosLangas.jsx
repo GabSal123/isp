@@ -1,17 +1,15 @@
-// Allways needed
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
-// For API calls
 import axios from 'axios';
 
 
-function FilmoForma() {
+function FilmoVertinimoFormosLangas() {
     return (
         <div>
-            Esi Filmo Formoje!
+            Filmo vertinimo forma
         </div>
     )
 }
 
-export default FilmoForma
+export default FilmoVertinimoFormosLangas

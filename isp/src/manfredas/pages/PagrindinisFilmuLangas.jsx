@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 // For API calls
 import axios from 'axios';
-import FilmoForma from './FilmoForma';
+import FilmoVertinimoFormosLangas from './FilmoVertinimoFormosLangas';
 
-function FilmuLangas() {
+function PagrindinisFilmuLangas() {
     const [movieList, setMovieList] = useState([])
 
     useEffect(()=>{
@@ -21,11 +21,11 @@ function FilmuLangas() {
 
     return (
         <div>
-            Hello World
+            Pagrindinis filmų langas
             <br></br>
             <button onClick={navigateToFilmoForma}>I filmo forma</button>
         </div>
     )
 }
 
-export default FilmuLangas
+export default PagrindinisFilmuLangas

@@ -4,7 +4,7 @@ import Reservations from './gabrielius/pages/Reservations'
 import SeansuLangas from './gabrielius/pages/SeansuLangas';
 import DisplayReservation from './gabrielius/components/DisplayReservation';
 import RezervacijosKurimoLangas from './gabrielius/pages/RevervacijosKurimoLangas';
-import FilmoLangas from './gabrielius/pages/FilmoLangas';
+import FilmoLangasGabrielius from './gabrielius/pages/FilmoLangasGabrielius';
 import RezervacijuLangas from './gabrielius/pages/RezervacijuLangas';
 import RezervacijosInformacinisLangas from './gabrielius/pages/RezervacijosInformacinisLangas';
 import MokejimoLangas from './gabrielius/pages/MokejimoLangas';
@@ -21,8 +21,13 @@ import VerifyEmail from './Titas/components/VerifyEmail';
 import VerifyLogin from './Titas/components/VerifyLogin';
 import PrekesLangas from './Justina/pages/PrekesLangas';
 import PrekiuSarasas from './Justina/pages/PrekiuSarasas';
-import FilmuLangas from './manfredas/FilmuLangas'
-import FilmoForma from './manfredas/FilmoForma';
+
+// Manfredas Lamsargis IFF-2/5
+import FilmoFormosLangas from './manfredas/pages/FilmoFormosLangas'
+import FilmoLangas from './manfredas/pages/FilmoLangas'
+import FilmoRedagavimoFormosLangas from './manfredas/pages/FilmoRedagavimoFormosLangas';
+import FilmoVertinimoFormosLangas from './manfredas/pages/FilmoVertinimoFormosLangas';
+import PagrindinisFilmuLangas from './manfredas/pages/PagrindinisFilmuLangas';
 
 
 
@@ -33,9 +38,9 @@ function App() {
 
       <Routes>
 
-      <Route path="/FilmoLangas" element={<Reservations/>}/>
+      <Route path="/FilmoLangasGabrielius" element={<Reservations/>}/>
 
-      <Route path="/filmas/:id" element={<FilmoLangas/>}/>
+      <Route path="/filmas/:id" element={<FilmoLangasGabrielius/>}/>
       <Route path="/seansai/:id" element={<SeansuLangas/>}/>
       <Route path="/revervacija" element={<RezervacijuLangas/>}/>
       <Route path="/revervacijosinfo/:id" element={<RezervacijosInformacinisLangas/>}/>
@@ -47,8 +52,12 @@ function App() {
       <Route path="/PirkiniuIstorija" element={<PirkiniuIstorija/>}/>
       <Route path="/Krepselis" element={<KrepselioLangas/>}/>
 
-      <Route path="/" element={<FilmuLangas/>}/>
-      <Route path="/FilmoForma" element={<FilmoForma/>}/>
+      
+      <Route path="/" element={<PagrindinisFilmuLangas/>}/>
+      <Route path="/FilmoVertinimoFormosLangas" element={<FilmoVertinimoFormosLangas/>}/>
+      <Route path="/FilmoRedagavimoFormosLangas" element={<FilmoRedagavimoFormosLangas/>}/>
+      <Route path="/FilmoLangas" element={<FilmoLangas/>}/>
+      <Route path="/FilmoFormosLangas" element={<FilmoFormosLangas/>}/>
 
 
       <Route path="/FilmuIstorija" element={<FilmuIstorija/>}/>

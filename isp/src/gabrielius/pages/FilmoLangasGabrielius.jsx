@@ -5,7 +5,7 @@ import "../styles/resstyles.css"
 import SeatSelection from '../components/SeatSelection';
 import axios from 'axios';
 
-const FilmoLangas = ()=> {
+const FilmoLangasGabrielius = ()=> {
     const { id } = useParams();
 
     const [movie, setMovie] = useState({title:""})
@@ -43,4 +43,4 @@ const FilmoLangas = ()=> {
   )
 }
 
-export default FilmoLangas
+export default FilmoLangasGabrielius
