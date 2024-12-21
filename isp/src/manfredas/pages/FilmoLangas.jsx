@@ -15,6 +15,7 @@ function displaySelectedMovie(movie) {
 
     const getLanguage = async () => {
         const response = await axios.get(`https://localhost:7241/GetMovieLanguage?id=${movie.language}`);
+        console.log(response)
         setLanguage(response.data);
     };
 
