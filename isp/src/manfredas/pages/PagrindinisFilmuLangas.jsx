@@ -55,6 +55,7 @@ function PagrindinisFilmuLangas() {
 
     return (
         <div>
+            <button style={{ marginLeft: 'auto' }} onClick={() => navigate('/Profilis/')}>Mano profilis</button>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh',}}>
                 <div style={{ margin: '10% auto', display: 'flex', flexWrap: 'wrap' }}>
                     {movieList.map((movie) => displayMovie(movie, navigate))}
