@@ -30,13 +30,17 @@ function selectValueBox(inputFieldName, options, value, onChange) {
         }}>
             <label>{inputFieldName}</label><br />
             <select value={value} onChange={onChange}>
+                <option value="" disabled>Select an option</option>
                 {options.map((option) => (
-                    <option key={option} value={option}>{option}</option>
+                    <option key={option.id} value={option.id}>
+                        {option.name}
+                    </option>
                 ))}
             </select>
         </div>
     );
 }
+
 
 function FilmoFormosLangas() {
     const [movie, setMovie] = useState("");
@@ -49,8 +53,8 @@ function FilmoFormosLangas() {
     const [studio, setStudio] = useState("");
     const [isDubbed, setIsDubbed] = useState(false);
     const [hasSubtitles, setHasSubtitles] = useState(false);
-    const [movieLanguage, setMovieLanguage] = useState(0);
-    const [ageCensorship, setAgeCensorship] = useState(0);
+    const [movieLanguage, setMovieLanguage] = useState("");
+    const [ageCensorship, setAgeCensorship] = useState("");
     
     const [movieLanguageList, setMovieLanguageList] = useState([]);
     const [ageCensorshipList, setAgeCensorshipList] = useState([]);
@@ -116,8 +120,18 @@ function FilmoFormosLangas() {
             {inputTextBox("Nuoroda į oficialų anonsą", officialTrailerLink, (e) => setOfficialTrailerLink(e.target.value))}
             {inputTextBox("Trukmė sekundėmis", duration, (e) => setDuration(e.target.value))}
             {inputTextBox("Filmo studija", studio, (e) => setStudio(e.target.value))}
-            {selectValueBox("Filmo kalba", movieLanguageList.map(e => e.name), movieLanguage, (e) => setMovieLanguage(parseInt(e.target.value)))}
-            {selectValueBox("Amžiaus cenzas", ageCensorshipList.map(e => e.name), ageCensorship, (e) => setAgeCensorship(parseInt(e.target.value)))}
+            {selectValueBox(
+                "Filmo kalba",
+                movieLanguageList,
+                movieLanguage,
+                (e) => setMovieLanguage(parseInt(e.target.value))
+            )}
+            {selectValueBox(
+                "Amžiaus cenzas",
+                ageCensorshipList,
+                ageCensorship,
+                (e) => setAgeCensorship(parseInt(e.target.value))
+            )}
 
             <button onClick={handleSubmit}>Save Movie</button>
         </div>
