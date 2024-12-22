@@ -133,7 +133,7 @@ function FilmoFormosLangas() {
                 (e) => setAgeCensorship(parseInt(e.target.value))
             )}
 
-            <button onClick={handleSubmit}>Save Movie</button>
+            <button onClick={handleSubmit}>Išsaugoti filmą</button>
         </div>
     );
 }
