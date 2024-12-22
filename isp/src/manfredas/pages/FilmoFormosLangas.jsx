@@ -101,7 +101,8 @@ function FilmoFormosLangas() {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            gap: '10px'
         }}>
             <h1>Naujo filmo forma</h1>
 

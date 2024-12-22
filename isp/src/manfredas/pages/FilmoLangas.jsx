@@ -54,7 +54,7 @@ function displaySelectedMovie(movie, navigate) {
                 <p>Rodomas: nuo {movie.startingFrom} iki {movie.showingUntil}</p>
                 <p>Subtitrai: {movie.subtitles === 0 ? "yra" : "nėra"}</p> 
                 <p><a href={movie.trailerLink} target="_blank">Oficialus anonsas</a></p>
-                <button>Bilietai</button>
+                <button onClick={() => navigate(`/seansai/${movie.id}`)}> Bilietai</button>
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button style={{ marginRight: '20px' }} onClick={
