@@ -25,14 +25,16 @@ function FilmoVertinimoFormosLangas() {
     };
 
     const handleSubmit = () => {
-        const review = {
-            movieId: id,
-            rating,
-            comment,
+        const watchedMovie = {
+            WatchDate: new Date().toISOString().split('T')[0],
+            Comment: String(comment) || null,
+            Rating: parseInt(rating),
+            FkMovie: parseInt(id),
+            FkRegisteredUser: 1,
         };
 
         axios
-            .post('https://localhost:7241/SubmitMovieRating', review)
+            .post('https://localhost:7241/SubmitMovieReview', watchedMovie)
             .then(() => {
                 alert("Jūsų vertinimas įrašytas!");
             })
