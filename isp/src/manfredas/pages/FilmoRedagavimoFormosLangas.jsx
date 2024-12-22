@@ -61,7 +61,7 @@ function FilmoRedagavimoFormosLangas() {
                 setMovieLanguageList(languageResponse.data);
                 setAgeCensorshipList(censorshipResponse.data);
             } catch (error) {
-                console.error('Error fetching data:', error);
+                alert("Netikėta klaida, prašome bandyti vėliau.");
             }
         };
 
@@ -73,7 +73,7 @@ function FilmoRedagavimoFormosLangas() {
             const response = await axios.put(`https://localhost:7241/UpdateMovieDataById`, movie);
             console.log('Movie updated successfully:', response.data);
         } catch (error) {
-            console.error('Error saving movie:', error.response ? error.response.data : error);
+            alert("Nepavyko išsaugoti filmo, nes toks filmas jau egzistuoja duomenų bazėje.")
         }
     };
 

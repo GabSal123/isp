@@ -59,8 +59,12 @@ function displaySelectedMovie(movie, navigate) {
             <div style={{ display: 'flex', justifyContent: 'center' }}>
             <button style={{ marginRight: '20px' }} onClick={
                         async () => {
-                            await axios.delete(`https://localhost:7241/DeleteMovieById?id=${movie.id}`);
-                            navigate(`/`)
+                            try {
+                                await axios.delete(`https://localhost:7241/DeleteMovieById?id=${movie.id}`);
+                                navigate(`/`)
+                            } catch (error) {
+                                alert(`Filmo ${movie.title} nepavyko ištrinti`);
+                            }
                             }}>Ištrinti</button>
                 <button onClick={() => {navigate(`/FilmoRedagavimoFormosLangas/${movie.id}`);}}>Redaguoti</button>
              </div>
