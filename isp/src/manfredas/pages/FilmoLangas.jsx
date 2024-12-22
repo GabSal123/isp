@@ -22,7 +22,7 @@ function displaySelectedMovie(movie, navigate) {
     useEffect(() => {
         getAgeCensorship();
         getLanguage();
-    },[]);
+    },[movie]);
     return (
         <div>
             <div
