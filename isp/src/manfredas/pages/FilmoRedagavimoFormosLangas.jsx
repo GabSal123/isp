@@ -42,20 +42,32 @@ function displayMovieEditingForm(movie) {
 
 function FilmoRedagavimoFormosLangas() {
     const { id } = useParams();
-
     const [movie, setMovie] = useState("")
+    const [movieLanguageList, setMovieLanguageList] = useState([]);
+    const [ageCensorshipList, setAgeCensorshipList] = useState([]);
 
-    useEffect(()=>{
-        axios.get(`https://localhost:7241/GetMovieById?id=${id}`)
-            .then((result) => {
-                console.log(result)
-                setMovie(result.data);
-            })
-    },[]);
+    useEffect(() => {
+        const fetchData = async () => {
+          try {
+            const [movieResponse, languageResponse, censorshipResponse] = await Promise.all([
+              axios.get(`https://localhost:7241/GetMovieById?id=${id}`),
+              axios.get('https://localhost:7241/GetAvailableMovieLanguageList'),
+              axios.get('https://localhost:7241/GetMovieAgeCensorshipList'),
+            ]);
+      
+            setMovie(movieResponse.data);
+            setMovieLanguageList(languageResponse.data);
+            setAgeCensorshipList(censorshipResponse.data);
+          } catch (error) {
+            console.error('Error fetching data:', error);
+          }
+        };
+        fetchData();
+      }, []);
 
     return (
         <div>
-            {displayMovieEditingForm(movie)}
+            <label>{ageCensorshipList.at(0).name} I'm fine, this is fine</label>
         </div>
     );
 }
