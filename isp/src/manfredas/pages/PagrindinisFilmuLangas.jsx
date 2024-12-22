@@ -25,7 +25,12 @@ function displayMovie(movie, navigate) {
                 maxHeight: '600px'
             }}
         >
-            <h2>{movie.title}</h2>
+            <h2 style={{
+                    maxWidth: '200px',
+                    textAlign: 'center',
+                    wordWrap: 'break-word',
+                    overflowWrap: 'break-word',
+                }}>{movie.title}</h2>
             <img 
                 src={`/src/manfredas/assets/movie_covers/${movie.title}.jpg`}
                 style={{ maxWidth: '200px', maxHeight: '300px' }}
