@@ -99,7 +99,7 @@ function FilmoVertinimoFormosLangas() {
                     cursor: 'pointer',
                 }}
             >
-                Submit
+                Pateikti
             </button>
         </div>
     );

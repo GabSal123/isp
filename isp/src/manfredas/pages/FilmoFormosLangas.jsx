@@ -114,8 +114,24 @@ function FilmoFormosLangas() {
             {inputTextBox("Pradedamas rodyti nuo", startDate, (e) => setStartDate(e.target.value))}
             {inputTextBox("Baigiamas rodyti iki", endDate, (e) => setEndDate(e.target.value))}
             {inputTextBox("Viršelio nuotraukos vieta (.jpg formato)", coverImage, (e) => setCoverImage(e.target.value))}
-            {selectValueBox("Yra dubliuotas", ["Taip", "Ne"], isDubbed ? "Taip" : "Ne", (e) => setIsDubbed(e.target.value === "Taip"))}
-            {selectValueBox("Turi subtitrus", ["Taip", "Ne"], hasSubtitles ? "Taip" : "Ne", (e) => setHasSubtitles(e.target.value === "Taip"))}
+            {selectValueBox(
+                "Yra dubliuotas",
+                [
+                    { id: true, name: "Taip" },
+                    { id: false, name: "Ne" },
+                ],
+                isDubbed,
+                (e) => setIsDubbed(e.target.value === "true")
+            )}
+            {selectValueBox(
+                "Turi subtitrus",
+                [
+                    { id: true, name: "Taip" },
+                    { id: false, name: "Ne" },
+                ],
+                hasSubtitles,
+                (e) => setHasSubtitles(e.target.value === "true")
+            )}
             {inputTextBox("Filmo aprašas", description, (e) => setDescription(e.target.value))}
             {inputTextBox("Nuoroda į oficialų anonsą", officialTrailerLink, (e) => setOfficialTrailerLink(e.target.value))}
             {inputTextBox("Trukmė sekundėmis", duration, (e) => setDuration(e.target.value))}
