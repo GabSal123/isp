@@ -30,7 +30,7 @@ function FilmoVertinimoFormosLangas() {
             Comment: String(comment) || null,
             Rating: parseInt(rating),
             FkMovie: parseInt(id),
-            FkRegisteredUser: 1,
+            FkRegisteredUser: 8,
         };
 
         axios

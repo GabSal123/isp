@@ -46,7 +46,7 @@ function PagrindinisFilmuLangas() {
     const navigate = useNavigate();
 
     useEffect(()=>{
-        axios.get(`https://localhost:7241/GetAllMovies`)
+        axios.get(`https://localhost:7241/RecommendMovies/${8}`)
             .then((result)=>{
                 setMovieList(result.data);
                 console.log(result);
